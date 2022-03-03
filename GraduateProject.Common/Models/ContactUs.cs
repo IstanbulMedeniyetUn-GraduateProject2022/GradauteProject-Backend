@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace GraduateProject.Common.Models
 {
     [Table("ContactUs")]
-    class ContactUs
+    public class ContactUs
     {
         [Key]
         [Column("ID")]

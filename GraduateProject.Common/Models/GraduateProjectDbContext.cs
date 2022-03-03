@@ -30,6 +30,7 @@ namespace GraduateProject.Common.Models
         public virtual DbSet<PlaceToVisit> PlaceToVisits { get; set; }
         public virtual DbSet<PlaceToVisitLog> PlaceToVisitLogs { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<ContactUs> ContactUs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
