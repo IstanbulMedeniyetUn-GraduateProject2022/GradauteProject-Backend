@@ -7,7 +7,13 @@ CREATE TABLE Department
     CONSTRAINT CHK_Department_IsActive CHECK (IsActive = 1 or IsActive = 0),
     CONSTRAINT PK_Department_DepartmentID PRIMARY KEY(DepartmentID)
 );
-
+CREATE TABLE ContactUs (
+    Id int  IDENTITY(1,1) PRIMARY KEY,
+    FirstName varchar(50) NOT NULL,
+    LastName varchar(50) NOT NULL,
+    Email varchar(50) NOT NULL,
+	Question varchar(1000) NOT NULL
+);
 CREATE TABLE [Language]
 (  
     LanguageID int IDENTITY(1,1),

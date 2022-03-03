@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\18120212004\\Desktop\\asp.netcore\\GraduateProject\\GraduateProject.Common\\GraduateProject.Common.csproj": {}
+    "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj": {}
   },
   "projects": {
-    "C:\\Users\\18120212004\\Desktop\\asp.netcore\\GraduateProject\\GraduateProject.Common\\GraduateProject.Common.csproj": {
+    "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\18120212004\\Desktop\\asp.netcore\\GraduateProject\\GraduateProject.Common\\GraduateProject.Common.csproj",
+        "projectUniqueName": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
         "projectName": "GraduateProject.Common",
-        "projectPath": "C:\\Users\\18120212004\\Desktop\\asp.netcore\\GraduateProject\\GraduateProject.Common\\GraduateProject.Common.csproj",
+        "projectPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
         "packagesPath": "C:\\Users\\18120212004\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\18120212004\\Desktop\\asp.netcore\\GraduateProject\\GraduateProject.Common\\obj\\",
+        "outputPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\18120212004\\AppData\\Roaming\\NuGet\\NuGet.Config",
