@@ -25,7 +25,7 @@ namespace GraduateProject.CP.Controllers
             _mailService = mailService;
             _configuration = configuration;
         }
-
+        
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
         {
@@ -89,6 +89,30 @@ namespace GraduateProject.CP.Controllers
             }
 
             return BadRequest(result);
+        }
+
+        [AllowAnonymous] //is it true
+        [HttpPost("ForgetPassword")]
+        public async Task<IActionResult> ForgetPassword(string email) {
+            if (string.IsNullOrEmpty(email))
+                return NotFound();
+            var result = await _authService.ForgetPasswordAsync(email);
+            if (result.IsAuthenticated)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword([FromForm] ResetPasswordViewModel model) {
+            if (ModelState.IsValid)
+            {
+                var result = await _authService.ResetPasswordAsync(model);
+                if (result.IsAuthenticated)
+                    return Ok(model);
+                return BadRequest();
+            }
+            return BadRequest("some properties are not valid");
         }
 
     }

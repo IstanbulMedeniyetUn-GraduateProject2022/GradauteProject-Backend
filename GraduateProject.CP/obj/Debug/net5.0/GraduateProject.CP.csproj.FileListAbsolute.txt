@@ -276,3 +276,13 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\ref\GraduateProject.CP.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.genruntimeconfig.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\bin\Debug\net5.0\GraduateProject.CP.Views.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\bin\Debug\net5.0\GraduateProject.CP.Views.pdb
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorAssemblyInfo.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorAssemblyInfo.cs
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.TagHelpers.input.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.TagHelpers.output.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorCoreGenerate.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\Razor\Pages\ResetPassword.cshtml.g.cs
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorTargetAssemblyInfo.cs
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.Views.pdb

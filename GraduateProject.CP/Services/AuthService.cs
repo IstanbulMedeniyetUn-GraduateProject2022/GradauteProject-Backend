@@ -195,6 +195,59 @@ namespace GraduateProject.CP.Services
                 Message = errors
             };
         }
+
+        public async Task<AuthModel> ForgetPasswordAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user==null)
+                return new AuthModel { IsAuthenticated = false, Message = "No user associated with this email" };
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var encodedToken = Encoding.UTF8.GetBytes(token);
+            var validToken = WebEncoders.Base64UrlEncode(encodedToken);
+
+            string url = $"{_configuration["AppUrl"]}/ResetPassword?email={email}&token={validToken}";
+
+            await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
+                $"<p>To reset your password <a href='{url}'>Click here</a></p>");
+            return new AuthModel { IsAuthenticated = true, Message = "Reset Password URL has been sent to your email successfully!" };
+        }
+
+        public async Task<AuthModel> ResetPasswordAsync(ResetPasswordViewModel model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user == null)
+                return new AuthModel
+                {
+                    IsAuthenticated = false,
+                    Message = "No user associated with this email"
+                };
+            if (model.NewPassword != model.ConfirmPassword)
+                return new AuthModel
+                {
+                    IsAuthenticated = false,
+                    Message = "Password doesn't match its confirmation"
+                };
+
+            var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
+            string normalToken = Encoding.UTF8.GetString(decodedToken);
+
+            var result = await _userManager.ResetPasswordAsync(user, normalToken, model.NewPassword);
+            if (result.Succeeded)
+                return new AuthModel
+                {
+                    IsAuthenticated = true,
+                    Message = "Password has been reset successfully!!"
+                };
+            var errors = string.Empty;
+            foreach (var error in result.Errors)
+                errors += $"{error.Description}, ";
+            return new AuthModel
+            {
+                IsAuthenticated = false,
+                Message = errors
+            };
+        }
     }
 }
     
