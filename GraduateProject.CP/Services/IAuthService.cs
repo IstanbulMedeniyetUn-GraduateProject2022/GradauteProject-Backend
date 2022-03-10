@@ -15,6 +15,11 @@ namespace GraduateProject.CP.Services
         Task<string> AddRoleAsync(AddRoleModel model);
 
         Task<AuthModel> ConfirmEmailAsync(string userId, string token);
+
+        Task<AuthModel> ForgetPasswordAsync(string email);
+
+        Task<AuthModel> ResetPasswordAsync(ResetPasswordViewModel model);
+
     }
 
 }

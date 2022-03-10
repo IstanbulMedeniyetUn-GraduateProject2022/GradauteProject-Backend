@@ -11,6 +11,7 @@ namespace GraduateProject.Common.Models
     [Table("DoctorLog")]
     public partial class DoctorLog
     {
+
         [Key]
         [Column("DoctorID")]
         public int DoctorId { get; set; }

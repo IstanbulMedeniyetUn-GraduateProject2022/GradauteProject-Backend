@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GraduateProject.CP.Middleware
+/*namespace GraduateProject.CP.Middleware
 {
     public class VisitorCounterMiddleware
     {
@@ -32,4 +32,4 @@ namespace GraduateProject.CP.Middleware
             await _requestDelegate(context);
         }
     }
-}
+}*/

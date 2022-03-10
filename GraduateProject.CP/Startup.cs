@@ -1,6 +1,5 @@
 using GraduateProject.Common.Models;
 using GraduateProject.CP.Helpers;
-using GraduateProject.CP.Middleware;
 using GraduateProject.CP.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -70,6 +69,7 @@ namespace GraduateProject.CP
             services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<IMailService, SendGridMailService>();
             services.AddControllers();
+            services.AddRazorPages();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GraduateProject.CP", Version = "v1" });
@@ -86,7 +86,7 @@ namespace GraduateProject.CP
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GraduateProject.CP v1"));
             }
 
-            app.UseMiddleware(typeof(VisitorCounterMiddleware));
+            //app.UseMiddleware(typeof(VisitorCounterMiddleware));
             app.UseRouting();
 
             app.UseHttpsRedirection();
@@ -99,6 +99,7 @@ namespace GraduateProject.CP
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
             });
         }
