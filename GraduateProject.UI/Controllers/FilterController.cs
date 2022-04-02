@@ -33,5 +33,16 @@ namespace GraduateProject.UI.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("[action]/{City?}/{Rating?}")]
+        public async Task<IActionResult> FilterByCityOrRating(string? city, float? rating)
+        {
+            var medicalCenters = await _filter.FilterByCityOrRating(city, rating);
+            if (medicalCenters != null)
+            {
+                return Ok(medicalCenters);
+            }
+            return NotFound();
+        }
     }
 }
