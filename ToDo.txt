@@ -1,0 +1,1 @@
+all rating for each doctors should be calculate
