@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -15,6 +16,54 @@ namespace GraduateProject.Common.Models
         {
             Comments = new HashSet<Comment>();
             Ratings = new HashSet<Rating>();
+
+            //this approach is used for calculating the three doctors that that should have the same rating, and that because we used AR, EN, TUR in db 
+            float FirstRating, SecondRating, ThirdRating;
+
+            if (DoctorId % 3 == 0)//like 3=> 3 ,2, 1
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.DoctorId == DoctorId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId - 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId - 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+
+            else if (DoctorId % 3 == 2)//like 5=> 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId - 1) select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.DoctorId == DoctorId select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId + 1) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            else  //(DoctorId % 3 == 1)like 4 => 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.DoctorId == DoctorId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId + 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.DoctorId == (DoctorId + 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            Rate = (FirstRating + SecondRating + ThirdRating) / 3;
         }
 
         [Key]
@@ -37,6 +86,9 @@ namespace GraduateProject.Common.Models
         public string Gender { get; set; }
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
+
+        [Required]
+        public float Rate { get; set; }
         [Required]
         [StringLength(100)]
         public string WorkingPlace { get; set; }
@@ -65,6 +117,10 @@ namespace GraduateProject.Common.Models
         public int? MedicalCenterId { get; set; }
         [Required]
         public bool IsActive { get; set; }
+
+        //[Required]
+        //public bool IsConfirmed { get; set; }
+
         [Column("LanguageID")]
         public int? LanguageId { get; set; }
         [Required]

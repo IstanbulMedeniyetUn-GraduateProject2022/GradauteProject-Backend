@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -15,6 +16,54 @@ namespace GraduateProject.Common.Models
         {
             Comments = new HashSet<Comment>();
             Ratings = new HashSet<Rating>();
+
+            //this approach is used for calculating the three places that that should have the same rating, and that because we used AR, EN, TUR in db 
+            float FirstRating, SecondRating, ThirdRating;
+
+            if (PlaceId % 3 == 0)//like 3=> 3 ,2, 1
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.PlaceId == PlaceId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId - 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId - 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+
+            else if (PlaceId % 3 == 2)//like 5=> 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId - 1) select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.PlaceId == PlaceId select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId + 1) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            else  //(PlaceId % 3 == 1)like 4 => 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.PlaceId == PlaceId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId + 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.PlaceId == (PlaceId + 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            Rate = (FirstRating + SecondRating + ThirdRating) / 3;
         }
 
         [Key]
@@ -32,6 +81,8 @@ namespace GraduateProject.Common.Models
         [Required]
         [StringLength(25)]
         public string City { get; set; }
+        [Required]
+        public float Rate { get; set; }
         [Required]
         [StringLength(15)]
         public string OpeningTime { get; set; }

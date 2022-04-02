@@ -11,6 +11,12 @@ namespace GraduateProject.Common.Models
     [Table("Rating")]
     public partial class Rating
     {
+        public Rating() 
+        { 
+            if (!(Rate >= 0 && Rate <= 5)) 
+                throw new InvalidOperationException("Rating should be between 0 and 5"); 
+        }
+
         [Key]
         [Column("RatingID")]
         public int RatingId { get; set; }
@@ -20,7 +26,7 @@ namespace GraduateProject.Common.Models
         [Required]
         [StringLength(50)]
         public string UserLastName { get; set; }
-        public int Rate { get; set; }
+        public float Rate { get; set; }
         [Column("DoctorID")]
         public int? DoctorId { get; set; }
         [Column("HotelID")]

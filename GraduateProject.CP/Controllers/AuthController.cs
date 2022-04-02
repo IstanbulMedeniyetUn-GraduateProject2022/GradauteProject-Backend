@@ -37,7 +37,7 @@ namespace GraduateProject.CP.Controllers
             if (!result.IsAuthenticated) //so if the username/email is already exit, IsAuthenticated will be false. Otherwise will be true. 
                 return BadRequest(result.Message);
 
-            return Ok(new { Username=result.Username, Email=result.Email, Role=result.Roles, token=result.Token, ExpiresOn=result.ExpiresOn });//return as you want from this values
+            return Ok(new { Username=result.Username, Email=result.Email, Role=result.Roles, token=result.Token, ExpiresOn=result.ExpiresOn });//return as you want from these values
         }
 
         [AllowAnonymous] //AllowAnonymous: user who don't have any special validity
