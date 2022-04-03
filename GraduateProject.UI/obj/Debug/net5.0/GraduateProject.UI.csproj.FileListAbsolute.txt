@@ -122,3 +122,6 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\ref\GraduateProject.UI.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.genruntimeconfig.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MailKit.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MimeKit.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\BouncyCastle.Crypto.dll

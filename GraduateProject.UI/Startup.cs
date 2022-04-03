@@ -1,3 +1,4 @@
+using GraduateProject.UI.Services;
 using GraduateProject.UI.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace GraduateProject.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+
+            services.AddTransient<IMailingService, MailingService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
