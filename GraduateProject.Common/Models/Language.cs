@@ -26,10 +26,10 @@ namespace GraduateProject.Common.Models
         [Required]
         [Column("Language")]
         [StringLength(50)]
-        public string Language1 { get; set; }
+        public string Name { get; set; }
         [Required]
         [StringLength(10)]
-        public string LanguageCode { get; set; }
+        public string Code { get; set; }
 
         [InverseProperty(nameof(Comment.Language))]
         public virtual ICollection<Comment> Comments { get; set; }

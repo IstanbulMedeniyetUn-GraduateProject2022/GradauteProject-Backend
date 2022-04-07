@@ -4,14 +4,16 @@ using GraduateProject.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraduateProject.Common.Migrations
 {
     [DbContext(typeof(GraduateProjectDbContext))]
-    partial class GraduateProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220406143137_updateDb")]
+    partial class updateDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -330,11 +332,6 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnName("DoctorID")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<DateTime?>("Birthday")
                         .HasColumnType("date");
 
@@ -346,6 +343,15 @@ namespace GraduateProject.Common.Migrations
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int")
                         .HasColumnName("DepartmentID");
+
+                    b.Property<string>("DoctorAddress")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("DoctorLocation")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
@@ -369,10 +375,6 @@ namespace GraduateProject.Common.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Location")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("MedicalCenterName")
                         .IsRequired()
@@ -560,16 +562,16 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnName("LanguageID")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Language1")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Language");
+
+                    b.Property<string>("LanguageCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("LanguageId");
 
@@ -670,11 +672,6 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnName("MedicalCenterID")
                         .UseIdentityColumn();
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasMaxLength(25)
@@ -685,11 +682,6 @@ namespace GraduateProject.Common.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -699,11 +691,21 @@ namespace GraduateProject.Common.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("MedicalCenterAddress")
+                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("MedicalCenterDescription")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("MedicalCenterLocation")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("MedicalCenterName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");

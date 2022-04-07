@@ -83,7 +83,7 @@ namespace GraduateProject.Common.Models
         [StringLength(25)]
         public string City { get; set; }
         [Required]
-        public float Rate { get; set; }
+        public float Rate { get; set; } = 0;
         [Required]
         [StringLength(15)]
         public string OpeningTime { get; set; }

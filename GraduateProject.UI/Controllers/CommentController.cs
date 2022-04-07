@@ -29,7 +29,7 @@ namespace GraduateProject.UI.Controllers
         {
             var item = await _context.Comments.FindAsync(id);
 
-            return item == null ? NotFound() : Ok(item);
+            return (item == null || item.IsActive == false) ? NotFound() : Ok(item);
         }
 
         [HttpPost]

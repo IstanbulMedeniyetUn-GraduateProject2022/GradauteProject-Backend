@@ -87,7 +87,7 @@ namespace GraduateProject.Common.Models
         [StringLength(100)]
 
         [Required]
-        public float Rate { get; set; }
+        public float Rate { get; set; } = 0;
         public string WebSiteLink { get; set; }
         [StringLength(14)]
         public string WhatappNumber { get; set; }

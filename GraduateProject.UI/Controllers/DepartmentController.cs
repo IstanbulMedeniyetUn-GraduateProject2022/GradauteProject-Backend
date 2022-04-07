@@ -33,7 +33,7 @@ namespace GraduateProject.UI.Controllers
         {
             var item = await _context.Departments.FindAsync(id);
 
-            return item == null ? NotFound() : Ok(item);
+            return (item == null || item.IsActive == false) ? NotFound() : Ok(item);
         }
     }
 }

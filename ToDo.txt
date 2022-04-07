@@ -1,1 +1,5 @@
 all rating for each doctors should be calculate
+تفقد صلاحية الايميل
+هل اوحد عدد النقرات؟
+رجع عدد النقرات في get item
+يحضر فقط المراكز الأكتيف

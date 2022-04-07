@@ -88,7 +88,8 @@ namespace GraduateProject.Common.Models
         public DateTime? Birthday { get; set; }
 
         [Required]
-        public float Rate { get; set; }
+        public float Rate { get; set; } = 0;
+
         [Required]
         [StringLength(100)]
         public string WorkingPlace { get; set; }

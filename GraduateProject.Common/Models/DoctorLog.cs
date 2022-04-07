@@ -48,9 +48,9 @@ namespace GraduateProject.Common.Models
         public string WhatappNumber { get; set; }
         [Required]
         [StringLength(100)]
-        public string DoctorAddress { get; set; }
+        public string Address { get; set; }
         [StringLength(100)]
-        public string DoctorLocation { get; set; }
+        public string Location { get; set; }
         [Column("DepartmentID")]
         public int DepartmentId { get; set; }
         [Required]

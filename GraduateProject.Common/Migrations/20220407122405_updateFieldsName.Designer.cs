@@ -4,14 +4,16 @@ using GraduateProject.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraduateProject.Common.Migrations
 {
     [DbContext(typeof(GraduateProjectDbContext))]
-    partial class GraduateProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220407122405_updateFieldsName")]
+    partial class updateFieldsName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -16,7 +16,7 @@ namespace GraduateProject.Common.Models
         public int MedicalCenterId { get; set; }
         [Required]
         [StringLength(100)]
-        public string MedicalCenterName { get; set; }
+        public string Name { get; set; }
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
@@ -40,11 +40,11 @@ namespace GraduateProject.Common.Models
         public string WhatappNumber { get; set; }
         [Required]
         [StringLength(100)]
-        public string MedicalCenterAddress { get; set; }
+        public string Address { get; set; }
         [StringLength(100)]
-        public string MedicalCenterLocation { get; set; }
+        public string Location { get; set; }
         [Required]
         [StringLength(1000)]
-        public string MedicalCenterDescription { get; set; }
+        public string Description { get; set; }
     }
 }
