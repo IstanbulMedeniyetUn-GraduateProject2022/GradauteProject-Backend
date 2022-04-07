@@ -32,8 +32,12 @@ namespace GraduateProject.UI.Controllers
         public async Task<ActionResult<Doctor>> GetItem(int id)
         {
             var item = await _context.Doctors.FindAsync(id);
-
-            return (item == null || item.IsActive == false) ? NotFound() : Ok(item);
+            if (item == null || item.IsActive == false)
+                return NotFound();
+            
+            item.ClicksNumber ++;
+            _context.Doctors.Update(item);
+            return Ok(item);
         }
     }
 }

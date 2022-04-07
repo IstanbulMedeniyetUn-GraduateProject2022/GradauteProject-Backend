@@ -33,7 +33,12 @@ namespace GraduateProject.UI.Controllers
         {
             var item = await _context.Hotels.FindAsync(id);
 
-            return (item == null || item.IsActive == false) ? NotFound() : Ok(item);
+            if (item == null || item.IsActive == false)
+                return NotFound();
+
+            item.ClicksNumber++;
+            _context.Hotels.Update(item);
+            return Ok(item);
         }
     }
 }
