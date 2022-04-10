@@ -1,4 +1,5 @@
-﻿using GraduateProject.Common.Models;
+﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace GraduateProject.CP.Controllers
     [ApiController]
     public class MedicalCenterController : ControllerBase
     {
-        private readonly GraduateProjectDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public MedicalCenterController(GraduateProjectDbContext context)
+        public MedicalCenterController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -42,7 +43,7 @@ namespace GraduateProject.CP.Controllers
         [Route("[action]/{id}")]
         public async Task<IActionResult> UpdateItem(int id, MedicalCenter item)
         {
-            if (id != item.MedicalCenterId)
+            if (id != item.Id)
             {
                 return BadRequest();
             }
@@ -110,7 +111,7 @@ namespace GraduateProject.CP.Controllers
 
         private bool ItemExists(int id)
         {
-            return _context.MedicalCenters.Any(e => e.MedicalCenterId == id);
+            return _context.MedicalCenters.Any(e => e.Id == id);
         }
 
 

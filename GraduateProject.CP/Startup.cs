@@ -1,3 +1,5 @@
+using GraduateProject.Common.Data;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
 using GraduateProject.CP.Helpers;
 using GraduateProject.CP.Services;
@@ -41,10 +43,10 @@ namespace GraduateProject.CP
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 5;
                 options.SignIn.RequireConfirmedAccount = true;
-            }).AddEntityFrameworkStores<GraduateProjectDbContext>()
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
              .AddDefaultTokenProviders();
             
-            services.AddDbContext<GraduateProjectDbContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
               options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
             
             services.AddAuthentication(options => {
@@ -74,6 +76,8 @@ namespace GraduateProject.CP
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GraduateProject.CP", Version = "v1" });
             });
+
+            services.AddServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

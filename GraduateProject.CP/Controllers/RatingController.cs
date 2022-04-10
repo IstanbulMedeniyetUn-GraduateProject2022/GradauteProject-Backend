@@ -1,4 +1,5 @@
-﻿using GraduateProject.Common.Models;
+﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,36 +15,36 @@ namespace GraduateProject.CP.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class RatingController : ControllerBase
+    public class ReviewController : ControllerBase
     {
-        private readonly GraduateProjectDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public RatingController(GraduateProjectDbContext context)
+        public ReviewController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<Rating>>> GetItems()
+        public async Task<ActionResult<IEnumerable<Review>>> GetItems()
         {
-            return await _context.Ratings.ToListAsync();
+            return await _context.Reviews.ToListAsync();
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Rating>> GetItem(int id)
+        public async Task<ActionResult<Review>> GetItem(int id)
         {
-            var item = await _context.Ratings.FindAsync(id);
+            var item = await _context.Reviews.FindAsync(id);
 
             return item == null ? NotFound() : Ok(item);
         }
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public async Task<IActionResult> UpdateItem(int id, Rating item)
+        public async Task<IActionResult> UpdateItem(int id, Review item)
         {
-            if (id != item.RatingId)
+            if (id != item.Id)
             {
                 return BadRequest();
             }
@@ -52,7 +53,7 @@ namespace GraduateProject.CP.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Ratings.Update(item);
+            _context.Reviews.Update(item);
             _context.Entry(item).State = EntityState.Modified;
 
             try
@@ -76,7 +77,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<Rating>> CreateItem(Rating item)
+        public async Task<ActionResult<Review>> CreateItem(Review item)
         {
             if (!ModelState.IsValid)
             {
@@ -84,7 +85,7 @@ namespace GraduateProject.CP.Controllers
             }
             else
             {
-                _context.Ratings.Add(item);
+                _context.Reviews.Add(item);
                 await _context.SaveChangesAsync();
 
                 return Ok(item);
@@ -95,15 +96,15 @@ namespace GraduateProject.CP.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Rating>> DeleteItem(int id)
+        public async Task<ActionResult<Review>> DeleteItem(int id)
         {
-            var item = await _context.Ratings.FindAsync(id);
+            var item = await _context.Reviews.FindAsync(id);
             if (item == null)
             {
                 return NotFound();
             }
 
-            _context.Ratings.Remove(item);
+            _context.Reviews.Remove(item);
             await _context.SaveChangesAsync();
 
             return Ok(item);
@@ -111,7 +112,7 @@ namespace GraduateProject.CP.Controllers
 
         private bool ItemExists(int id)
         {
-            return _context.Ratings.Any(e => e.RatingId == id);
+            return _context.Reviews.Any(e => e.Id == id);
         }
 
 

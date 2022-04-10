@@ -1,4 +1,5 @@
-﻿using GraduateProject.Common.Models;
+﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,14 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.UI.Services
 {
-    public class Filter : IFilter
+    public class Filter //: IFilter
     {
-        private readonly GraduateProjectDbContext _context;
-        public Filter(GraduateProjectDbContext context)
+        private readonly ApplicationDbContext _context;
+        public Filter(ApplicationDbContext context)
         {
             _context = context;
         }
+        /*
         public async Task <List<Doctor>> FilterByCityOrDepartmentOrRating(string? city, int? id, float? rating)
         {
             if ((string.IsNullOrEmpty(city) != true) && (id != null) && (rating != null)) //city, and id, rating
@@ -44,7 +46,7 @@ namespace GraduateProject.UI.Services
             {
                 return await _context.Doctors.Where(x => (x.City.ToLower() == city.ToLower()) && (x.DepartmentId == id)).OrderByDescending(x => x.Rate).ToListAsync();
             }
-            else  //is this true logically or I should not return anything when no condition will be true
+            else  //is this true logically or I should not return anything when no condition will be true//null
             {
                 return await _context.Doctors.OrderByDescending(x => x.Rate).ToListAsync(); //return all of them
             }
@@ -68,7 +70,7 @@ namespace GraduateProject.UI.Services
             {
                 return await _context.MedicalCenters.OrderByDescending(x => x.Rate).ToListAsync(); //return all of them
             }
-        }
+        }*/
     }
 }
 

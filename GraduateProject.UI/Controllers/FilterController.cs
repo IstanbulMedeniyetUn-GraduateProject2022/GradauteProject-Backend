@@ -21,7 +21,7 @@ namespace GraduateProject.UI.Controllers
             _filter = filter;
         }
 
-        [HttpGet]
+        [HttpGet] //post
         [Route("[action]/{City?}/{Department?}/{Rating?}")]
         public async Task<IActionResult> FilterByCityOrDepartmentOrRating(string? city, int? id, float? rating)
         {

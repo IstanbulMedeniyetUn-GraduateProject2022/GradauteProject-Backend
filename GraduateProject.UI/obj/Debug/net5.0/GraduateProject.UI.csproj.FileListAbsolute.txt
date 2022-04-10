@@ -60,6 +60,13 @@ C:\Users\18120212004\Desktop\asp.netcore\GraduateProject\GraduateProject.UI\bin\
 C:\Users\18120212004\Desktop\asp.netcore\GraduateProject\GraduateProject.UI\bin\Debug\net5.0\GraduateProject.Common.pdb
 C:\Users\18120212004\Desktop\asp.netcore\GraduateProject\GraduateProject.UI\bin\Debug\net5.0\Humanizer.dll
 C:\Users\18120212004\Desktop\asp.netcore\GraduateProject\GraduateProject.UI\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.AssemblyReference.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfoInputs.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfo.cs
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.CoreCompileInputs.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\appsettings.json
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\GraduateProject.UI.exe
@@ -70,6 +77,7 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\ref\GraduateProject.UI.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\GraduateProject.UI.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Humanizer.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MailKit.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.Data.SqlClient.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
@@ -84,7 +92,9 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MimeKit.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -106,13 +116,6 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\GraduateProject.Common.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\GraduateProject.Common.pdb
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.AssemblyReference.cache
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfoInputs.cache
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfo.cs
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.CoreCompileInputs.cache
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\staticwebassets\GraduateProject.UI.StaticWebAssets.Manifest.cache
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\staticwebassets\GraduateProject.UI.StaticWebAssets.xml
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\scopedcss\bundle\GraduateProject.UI.styles.css
@@ -122,6 +125,3 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\ref\GraduateProject.UI.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.genruntimeconfig.cache
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MailKit.dll
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\MimeKit.dll
-C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\BouncyCastle.Crypto.dll

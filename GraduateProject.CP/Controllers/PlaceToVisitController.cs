@@ -1,4 +1,5 @@
-﻿using GraduateProject.Common.Models;
+﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace GraduateProject.CP.Controllers
     [ApiController]
     public class PlaceToVisitController : ControllerBase
     {
-        private readonly GraduateProjectDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public PlaceToVisitController(GraduateProjectDbContext context)
+        public PlaceToVisitController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -42,7 +43,7 @@ namespace GraduateProject.CP.Controllers
         [Route("[action]/{id}")]
         public async Task<IActionResult> UpdateItem(int id, PlaceToVisit item)
         {
-            if (id != item.PlaceId)
+            if (id != item.Id)
             {
                 return BadRequest();
             }
@@ -110,7 +111,7 @@ namespace GraduateProject.CP.Controllers
 
         private bool ItemExists(int id)
         {
-            return _context.PlaceToVisits.Any(e => e.PlaceId == id);
+            return _context.PlaceToVisits.Any(e => e.Id == id);
         }
 
 

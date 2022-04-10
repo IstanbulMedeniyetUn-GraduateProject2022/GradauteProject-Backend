@@ -8,23 +8,33 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.Common.Models
 {
-    [Table("ContactUs")]
     public class ContactUs
     {
         [Key]
-        [Column("ID")]
         public int Id { get; set; }
+
         [Required]
         [StringLength(50)]
         public string FirstName { get; set; }
+
         [Required]
         [StringLength(50)]
         public string LastName { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(14)]
+        public string Phone { get; set; }
+
         [Required]
         [StringLength(1000)]
-        public string Question { get; set; }
+        public string Message { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Column(TypeName = "datetime2")]
+        public DateTime CreationDate { get; set; }
     }
 }

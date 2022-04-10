@@ -80,3 +80,36 @@ select * from HOTEL;
 INSERT INTO HOTELLOG(Name,	Email,	Phone,	City,	ImagePath,	WebSiteLink,	WhatappNumber,	LogoPath,	Address,	Location,	Description)
 VALUES            ('helton', 'helton@gmail.com','6561279707', 'İSTANBUL', 'https://th.bing.com/th/id/OIP.Lb5r5dptKjaCWyZRhQORMAHaE8?w=278&h=185&c=7&r=0&o=5&dpr=1.25&pid=1.7','https://www.facebook.com/zooworldclassic/app/203351739677351/','6561279707','https://th.bing.com/th/id/OIP.avxhtQqr5FoubGjq4sIXugHaEo?w=282&h=180&c=7&r=0&o=5&dpr=1.25&pid=1.7', 'İstanbulun hotellerinden biridir','https://goo.gl/maps/q9SyktrwcfLZvKfQA','güzel hotel');
 select * from HOTELLOG;
+
+
+
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	DoctorID,IsActive)
+VALUES            ('hamid', 'samir', 5, 1, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	DoctorID,IsActive)
+VALUES            ('sami', 'ahmet', 4, 2, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	DoctorID,IsActive)
+VALUES            ('betül', 'albayrak', 2, 3, 1);
+
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	HotelID,IsActive)
+VALUES            ('hamid', 'samir', 2, 1, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	HotelID,IsActive)
+VALUES            ('sami', 'ahmet', 4, 2, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	HotelID,IsActive)
+VALUES            ('betül', 'albayrak', 5, 3, 1);
+
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	MedicalCenterID,IsActive)
+VALUES            ('hamid', 'samir', 2, 1, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	MedicalCenterID,IsActive)
+VALUES            ('sami', 'ahmet', 4, 2, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	MedicalCenterID,IsActive)
+VALUES            ('betül', 'albayrak', 5, 3, 1);
+
+
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	PlaceID,IsActive)
+VALUES            ('hamid', 'samir', 5, 1, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	PlaceID,IsActive)
+VALUES            ('sami', 'ahmet', 4, 2, 1);
+INSERT INTO Rating(UserFirstName,	UserLastName,	Rate,	PlaceID,IsActive)
+VALUES            ('betül', 'albayrak', 5, 3, 1);
+
+select * from rating;

@@ -8,29 +8,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraduateProject.Common.Models
 {
-    [Table("Department")]
-    public partial class Department
+    public partial class Department : BaseEntity<int>
     {
-        public Department()
-        {
-            DoctorLogs = new HashSet<DoctorLog>();
-            Doctors = new HashSet<Doctor>();
-        }
+        public virtual ICollection<Doctor> Doctors { get; set; }
+        public virtual ICollection<DepartmentTranslate> Translates { get; set; }
 
-        [Key]
-        [Column("DepartmentID")]
-        public int DepartmentId { get; set; }
+    }
+
+    public class DepartmentTranslate : BaseEntityTranslate<int>
+    {
+        public int DepratmentId { get; set; }
+
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
-        [Required]
-        public bool IsActive { get; set; }
-        [Required]
-        public int ClicksNumber { get; set; }
 
-        [InverseProperty(nameof(DoctorLog.Department))]
-        public virtual ICollection<DoctorLog> DoctorLogs { get; set; }
-        [InverseProperty(nameof(Doctor.Department))]
-        public virtual ICollection<Doctor> Doctors { get; set; }
+        [ForeignKey(nameof(DepratmentId))]
+        public virtual Department Department { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GraduateProject.Common.Models;
+﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ namespace GraduateProject.UI.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly GraduateProjectDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DepartmentController(GraduateProjectDbContext context)
+        public DepartmentController(ApplicationDbContext context)
         {
             _context = context;
         }
