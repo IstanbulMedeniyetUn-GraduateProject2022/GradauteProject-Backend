@@ -125,3 +125,9 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\ref\GraduateProject.UI.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.genruntimeconfig.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.AssemblyReference.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.GeneratedMSBuildEditorConfig.editorconfig
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfoInputs.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.AssemblyInfo.cs
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.csproj.CoreCompileInputs.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.MvcApplicationPartsAssemblyInfo.cache

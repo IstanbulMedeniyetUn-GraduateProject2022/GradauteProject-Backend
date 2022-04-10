@@ -286,3 +286,11 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\ref\GraduateProject.CP.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.pdb
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.genruntimeconfig.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.csproj.AssemblyReference.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.GeneratedMSBuildEditorConfig.editorconfig
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.AssemblyInfoInputs.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.AssemblyInfo.cs
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.csproj.CoreCompileInputs.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.MvcApplicationPartsAssemblyInfo.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorAssemblyInfo.cache
+E:\DoctorBey\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.RazorAssemblyInfo.cs
