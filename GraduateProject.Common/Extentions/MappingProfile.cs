@@ -1,6 +1,9 @@
 ﻿
 using AutoMapper;
-using GraduateProject.Common.DTOs;
+using GraduateProject.Common.DTOs.Doctor;
+using GraduateProject.Common.DTOs.Hotel;
+using GraduateProject.Common.DTOs.MedicalCenter;
+using GraduateProject.Common.DTOs.PlaceToVisit;
 using GraduateProject.Common.Models;
 
 namespace Pal.Web.Extensions
@@ -9,8 +12,33 @@ namespace Pal.Web.Extensions
     {
         public MappingProfile()
         {
+            #region Doctors
+
             CreateMap<Doctor, DoctorDTO>().ReverseMap();
             CreateMap<DoctorTranslate, DoctorTranslateDTO>().ReverseMap();
+
+            #endregion
+
+            #region Medical Centers
+
+            CreateMap<MedicalCenter, MedicalCenterDTO>().ReverseMap();
+            CreateMap<MedicalCenterTranslate, MedicalCenterTranslateDTO>().ReverseMap();
+
+            #endregion
+
+            #region Hotels
+
+            CreateMap<Hotel, HotelDTO>().ReverseMap();
+            CreateMap<HotelTranslate, HotelTranslateDTO>().ReverseMap();
+
+            #endregion
+
+            #region Places To Visit
+
+            CreateMap<PlaceToVisit, PlaceToVisitDTO>().ReverseMap();
+            CreateMap<PlaceToVisitTranslate, PlaceToVisitTranslateDTO>().ReverseMap();
+
+            #endregion
         }
 
     }

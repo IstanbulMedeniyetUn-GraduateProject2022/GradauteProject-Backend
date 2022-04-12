@@ -1,5 +1,9 @@
 ﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.Doctor;
+using GraduateProject.Common.Enums;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.Doctors;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,106 +18,141 @@ namespace GraduateProject.CP.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorController : ControllerBase
+    public class DoctorController : Controller
     {
-            private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-            public DoctorController(ApplicationDbContext context)
+        private readonly IDoctorsService _doctorsService;
+
+        public DoctorController(ApplicationDbContext context, IDoctorsService doctorsService)
+        {
+            _context = context;
+            _doctorsService = doctorsService;  
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<DoctorListDTO>>> GetActivatedDoctors()
+        {
+            try
             {
-                _context = context;
+                var result = await _doctorsService.GetActivatedDoctors();
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<DoctorListDTO>>> GetUnActivatedDoctors()
+        {
+            try
+            {
+                var result = await _doctorsService.GetUnActivatedDoctors();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<DoctorDTO>> GetDoctorById(int id)
+        {
+            try
+            {
+                var result = await _doctorsService.GetDoctorById(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Success, result.ToString()));
+                return result;
+            }
+            catch(Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
-            [HttpGet]
-            [Route("[action]")]
-            public async Task<ActionResult<IEnumerable<Doctor>>> GetItems()
-            {
-                return await _context.Doctors.ToListAsync();
-            }
-
-            [HttpGet]
-            [Route("[action]/{id}")]
-            public async Task<ActionResult<Doctor>> GetItem(int id)
-            {
-                var item = await _context.Doctors.FindAsync(id);
-
-                return item == null ? NotFound() : Ok(item);
-            }
+        }
 
         [HttpPut]
-            [Route("[action]/{id}")]
-            public async Task<IActionResult> UpdateItem(int id, Doctor item)
-            {
-                if (id != item.Id)
-                {
-                    return BadRequest();
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-
-                _context.Doctors.Update(item);
-                _context.Entry(item).State = EntityState.Modified;
-
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ItemExists(id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return Ok(item);
-            }
-
-            [HttpPost]
-            [Route("[action]")]
-            public async Task<ActionResult<Doctor>> CreateItem(Doctor item)
+        [Route("[action]/{id}")]
+        public async Task<IActionResult> UpdateItem(int id, Doctor item)
         {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                else
-                {
-                    _context.Doctors.Add(item);
-                    await _context.SaveChangesAsync();
-
-                    return Ok(item);
-
-                }
+            if (id != item.Id)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
+            _context.Doctors.Update(item);
+            _context.Entry(item).State = EntityState.Modified;
 
-            [HttpDelete]
-            [Route("[action]/{id}")]
-            public async Task<ActionResult<Doctor>> DeleteItem(int id)
+            try
             {
-                var item = await _context.Doctors.FindAsync(id);
-                if (item == null)
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ItemExists(id))
                 {
                     return NotFound();
                 }
+                else
+                {
+                    throw;
+                }
+            }
 
-                _context.Doctors.Remove(item);
+            return Ok(item);
+        }
+
+        [HttpPost]
+        [Route("[action]")]
+        public async Task<ActionResult<Doctor>> CreateItem(Doctor item)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                _context.Doctors.Add(item);
                 await _context.SaveChangesAsync();
 
                 return Ok(item);
-            }
 
-            private bool ItemExists(int id)
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<Doctor>> DeleteItem(int id)
+        {
+            var item = await _context.Doctors.FindAsync(id);
+            if (item == null)
             {
-                return _context.Doctors.Any(e => e.Id == id);
+                return NotFound();
             }
 
-        
+            _context.Doctors.Remove(item);
+            await _context.SaveChangesAsync();
+
+            return Ok(item);
+        }
+
+        private bool ItemExists(int id)
+        {
+            return _context.Doctors.Any(e => e.Id == id);
+        }
+
+
     }
 }

@@ -6,13 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateProject.Common.DTOs
+namespace GraduateProject.Common.DTOs.Doctor
 {
     public class DoctorDTO
     {
         public int Id { get; set; }
-
-        public string FullName { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -32,7 +30,6 @@ namespace GraduateProject.Common.DTOs
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string ImagePath { get; set; }
 
@@ -52,6 +49,7 @@ namespace GraduateProject.Common.DTOs
         [StringLength(100)]
         public string Location { get; set; }
 
+        [Required]
         public int DepartmentId { get; set; }
 
         public int? MedicalCenterId { get; set; }

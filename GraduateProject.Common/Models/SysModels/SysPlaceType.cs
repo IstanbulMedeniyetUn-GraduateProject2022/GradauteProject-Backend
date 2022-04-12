@@ -9,7 +9,7 @@ namespace GraduateProject.Common.Models.SysModels
 {
     public class SysPlaceType : BaseEntity<int>
     {
-        public ICollection<SysCityTranslate> Translates { get; set; }
+        public ICollection<SysPlaceTypeTranslate> Translates { get; set; }
     }
 
     public class SysPlaceTypeTranslate : BaseEntityTranslate<int>

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using GraduateProject.Common.Models.SysModels;
-using Microsoft.EntityFrameworkCore;
+using System.Text;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace GraduateProject.Common.Models
+namespace GraduateProject.Common.DTOs.Hotel
 {
-    public class Hotel : BaseEntity<int> 
+    public class HotelDTO
     {
+        public int Id { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
@@ -23,21 +23,15 @@ namespace GraduateProject.Common.Models
         [Required]
         public int CityId { get; set; }
 
-        [ForeignKey(nameof(CityId))]
-        public SysCity City { get; set; }
-
-        [StringLength(100)]
-        [Required]
-        public float Rate { get; set; } = 0;
-
         public string WebSiteLink { get; set; }
 
         [StringLength(14)]
         public string WhatappNumber { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string LogoPath { get; set; }
+
+        public IFormFile ImageFile { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -47,14 +41,16 @@ namespace GraduateProject.Common.Models
         [StringLength(100)]
         public string Location { get; set; }
 
-        public int ClicksNumber { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
-        public virtual ICollection<HotelTranslate> Translates { get; set; }
+        public virtual ICollection<HotelTranslateDTO> Translates { get; set; }
     }
 
-    public class HotelTranslate : BaseEntityTranslate<int>
+    public class HotelTranslateDTO
     {
+        public int Id { get; set; }
+
         public int HotelId { get; set; }
+
+        public string LanguageId { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -63,9 +59,5 @@ namespace GraduateProject.Common.Models
         [Required]
         [StringLength(1000)]
         public string Description { get; set; }
-
-        [ForeignKey(nameof(HotelId))]
-        public virtual Hotel Hotel { get; set; }
-
     }
 }

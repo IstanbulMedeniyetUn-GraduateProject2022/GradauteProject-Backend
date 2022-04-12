@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using GraduateProject.Common.Data;
-using GraduateProject.Common.DTOs;
+using GraduateProject.Common.DTOs.Doctor;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.FileManager;
+using GraduateProject.Common.Services.Languages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,19 +11,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateProject.Common.Services
+namespace GraduateProject.Common.Services.Doctors
 {
     public class DoctorsService : IDoctorsService
     {
         #region Fields and Ctor
+
         private readonly ILanguageService _languageService;
         private readonly ApplicationDbContext _context;
         private readonly IMapper _autoMapper;
-        public DoctorsService(ApplicationDbContext context, ILanguageService languageService, IMapper autoMapper)
+        private readonly IFileManagerService _fileManager; 
+        public DoctorsService(ApplicationDbContext context, ILanguageService languageService, IMapper autoMapper, IFileManagerService fileManager)
         {
             _context = context;
             _languageService = languageService;
             _autoMapper = autoMapper;
+            _fileManager = fileManager;
         }
 
         #endregion
@@ -43,6 +48,10 @@ namespace GraduateProject.Common.Services
                         WorkingPlace = t.WorkingPlace,
                         LanguageId = t.LanguageId
                     });
+                }
+                if(model.ImageFile != null)
+                {
+                    doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
                 doctor.Tranlates = doctorTranslates;
                 _context.Add(doctor);
@@ -74,22 +83,34 @@ namespace GraduateProject.Common.Services
             
         }
 
-        public Task<List<DoctorDTO>> FilterDoctors(int? DepartmentId, int? cityId, int? rate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<DoctorDTO>> GetAcitvatedDoctors()
+        public Task<List<DoctorListDTO>> FilterDoctors(int? DepartmentId, int? cityId, int? rate)
         {
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<DoctorDTO> result = await _context.Doctors.Where(d => d.IsActive == true).Select(d => new DoctorDTO
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+            throw new NotImplementedException();
+        }
+
+        public async Task<List<DoctorListDTO>> GetActivatedDoctors()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new DoctorListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
                     Phone = d.Phone,
                     FullName = d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).LastName,
+                    DepartmentName = d.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    MedicalCenterName = d.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    Location = d.Location,
                 }).ToListAsync();
                 return result;
             }
@@ -119,17 +140,20 @@ namespace GraduateProject.Common.Services
             
         }
 
-        public async Task<List<DoctorDTO>> GetUnActivatedDoctors()
+        public async Task<List<DoctorListDTO>> GetUnActivatedDoctors()
         {
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<DoctorDTO> result = await _context.Doctors.Where(d => d.IsActive == false).Select(d => new DoctorDTO
+                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new DoctorListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
                     Phone = d.Phone,
                     FullName = d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).LastName,
+                    DepartmentName = d.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    MedicalCenterName = d.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    Location = d.Location,
                 }).ToListAsync();
                 return result;
             }
@@ -156,6 +180,13 @@ namespace GraduateProject.Common.Services
                         WorkingPlace = t.WorkingPlace,
                         LanguageId = t.LanguageId
                     });
+                }
+                if (model.ImageFile != null)
+                {
+                    if(model.ImagePath != null)
+                        await _fileManager.DeleteFileAsync(model.ImagePath);
+
+                    doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
                 doctor.Tranlates = doctorTranslates;
                 _context.Update(doctor);
