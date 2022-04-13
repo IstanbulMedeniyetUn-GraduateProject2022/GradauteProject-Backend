@@ -17,13 +17,13 @@ namespace GraduateProject.Common.Models
 
     public class DepartmentTranslate : BaseEntityTranslate<int>
     {
-        public int DepratmentId { get; set; }
+        public int DepartmentId { get; set; }
 
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
 
-        [ForeignKey(nameof(DepratmentId))]
+        [ForeignKey(nameof(DepartmentId))]
         public virtual Department Department { get; set; }
     }
 }

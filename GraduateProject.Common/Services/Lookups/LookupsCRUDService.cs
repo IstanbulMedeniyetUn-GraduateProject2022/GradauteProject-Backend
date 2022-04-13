@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.Department;
 using GraduateProject.Common.DTOs.Lookups;
+using GraduateProject.Common.Models;
 using GraduateProject.Common.Models.SysModels;
 using GraduateProject.Common.Services.Languages;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,7 @@ namespace GraduateProject.Common.Services.Lookups
         }
 
         #endregion
+
 
         #region City
 
@@ -100,8 +103,9 @@ namespace GraduateProject.Common.Services.Lookups
                     return false;
 
 
-                var model = await _context.SysCities.FirstOrDefaultAsync(a => a.Id == id);
-                _context.Remove(model);
+                var city = await _context.SysCities.FirstOrDefaultAsync(a => a.Id == id);
+                city.IsDeleted = true;
+                _context.SysCities.Update(city);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -151,6 +155,7 @@ namespace GraduateProject.Common.Services.Lookups
         }
 
         #endregion
+
 
         #region Place Types
 
@@ -217,13 +222,14 @@ namespace GraduateProject.Common.Services.Lookups
             try
             {
                 if (await _context.PlaceToVisits.AnyAsync(a => a.PlaceTypeId == id))
-
                     return false;
 
 
-                var model = await _context.SysPlaceTypes.FirstOrDefaultAsync(a => a.Id == id);
-                _context.Remove(model);
+                var sysPlaceType = await _context.SysPlaceTypes.FirstOrDefaultAsync(a => a.Id == id);
+                sysPlaceType.IsDeleted = true;
+                _context.SysPlaceTypes.Update(sysPlaceType);
                 await _context.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception)
@@ -272,6 +278,126 @@ namespace GraduateProject.Common.Services.Lookups
         }
 
         #endregion
-        // TODO Place Type
+
+
+        #region Department
+
+        public async Task<List<DepartmentDTO>> GetSysDepartments()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+
+            return await _context.Departments.Select(x => new DepartmentDTO
+            {
+                Id = x.Id,
+                Name = x.Translates.FirstOrDefault(x => x.LanguageId == langId).Name
+
+            }).ToListAsync();
+        }
+
+        public async Task<List<DepartmentDTO>> DepartmentList()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                List<DepartmentDTO> result = await _context.Departments.Select(a => new DepartmentDTO
+                {
+                    Id = a.Id,
+                    Name = a.Translates.FirstOrDefault(a => a.LanguageId == langId).Name,
+
+                    Translates = a.Translates.Select(t => new DepartmentTranslateDTO
+                    {
+                        DepartmentId = t.DepartmentId,
+                        LanguageId = t.LanguageId,
+                        Name = t.Name,
+                    }).ToList()
+
+                }).ToListAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<DepartmentDTO> AddDepartment(DepartmentDTO model)
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                var newId = await _context.Departments.AnyAsync() ? await _context.Departments.MaxAsync(a => a.Id) + 1 : 1; //
+                model.Id = newId;
+                Department department = _autoMapper.Map<Department>(model);
+                department.Translates = model.Translates.Select(t => new DepartmentTranslate
+                {
+                    DepartmentId = newId,
+                    Name = t.Name,
+                    LanguageId = t.LanguageId
+                }).ToList();
+
+                await _context.AddAsync(department);
+                await _context.SaveChangesAsync();
+
+                foreach (var t in model.Translates)
+                {
+                    t.Id = department.Translates.Where(tran => tran.LanguageId == t.LanguageId).FirstOrDefault().Id;
+                }
+                return model;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> DeleteDepartment(int id)
+        {
+            try
+            {
+                if (await _context.Departments.AnyAsync(a => a.Id == id))
+                    return false;
+
+                var department = await _context.Departments.FirstOrDefaultAsync(a => a.Id == id);
+                department.IsDeleted = true;
+                _context.Departments.Update(department);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateDepartment(DepartmentDTO model)
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                var department = _autoMapper.Map<Department>(model);
+                department.Translates = model.Translates.Select(a => new DepartmentTranslate
+                {
+                    Id = a.Id,
+                    DepartmentId = model.Id,
+                    Name = a.Name,
+                    LanguageId = a.LanguageId,
+                }).ToList();
+                _context.Update(department);
+                await _context.SaveChangesAsync();
+
+                foreach (var t in model.Translates)
+                {
+                    t.Id = department.Translates.Where(tran => tran.LanguageId == t.LanguageId).FirstOrDefault().Id;
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

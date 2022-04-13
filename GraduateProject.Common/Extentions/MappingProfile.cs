@@ -1,10 +1,13 @@
 ﻿
 using AutoMapper;
+using GraduateProject.Common.DTOs.Department;
 using GraduateProject.Common.DTOs.Doctor;
 using GraduateProject.Common.DTOs.Hotel;
+using GraduateProject.Common.DTOs.Lookups;
 using GraduateProject.Common.DTOs.MedicalCenter;
 using GraduateProject.Common.DTOs.PlaceToVisit;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Models.SysModels;
 
 namespace Pal.Web.Extensions
 {
@@ -18,6 +21,28 @@ namespace Pal.Web.Extensions
             CreateMap<DoctorTranslate, DoctorTranslateDTO>().ReverseMap();
 
             #endregion
+
+            #region Departments
+
+            CreateMap<Department, DepartmentDTO>().ReverseMap();
+            CreateMap<DepartmentTranslate, DepartmentTranslateDTO>().ReverseMap();
+
+            #endregion
+
+            #region SysCities
+
+            CreateMap<SysCity, SysCityDTO>().ReverseMap();
+            CreateMap<SysCityTranslate, SysCityTranslateDTO>().ReverseMap();
+
+            #endregion
+
+            #region SysPlaceTypes
+
+            CreateMap<SysPlaceType, SysPlaceTypeDTO>().ReverseMap();
+            CreateMap<SysPlaceTypeTranslate, SysPlaceTypeTranslateDTO>().ReverseMap();
+
+            #endregion
+
 
             #region Medical Centers
 

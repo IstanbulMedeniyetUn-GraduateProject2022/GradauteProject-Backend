@@ -10,12 +10,14 @@ namespace GraduateProject.Common.DTOs.Department
     public class DepartmentDTO
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public virtual ICollection<DepartmentTranslateDTO> Translates { get; set; }
     }
 
     public class DepartmentTranslateDTO
     {
-        public int DepratmentId { get; set; }
+        public int Id { get; set; }
+        public int DepartmentId { get; set; }
 
         public string LanguageId { get; set; }
 

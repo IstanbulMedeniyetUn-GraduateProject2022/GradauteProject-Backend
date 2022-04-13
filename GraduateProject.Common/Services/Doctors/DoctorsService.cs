@@ -38,7 +38,7 @@ namespace GraduateProject.Common.Services.Doctors
             {
                 List<DoctorTranslate> doctorTranslates = new List<DoctorTranslate>();
                 Doctor doctor = _autoMapper.Map<Doctor>(model);
-                foreach (var t in model.Tranlates)
+                foreach (var t in model.Translates)
                 {
                     doctorTranslates.Add(new DoctorTranslate
                     {
@@ -169,7 +169,7 @@ namespace GraduateProject.Common.Services.Doctors
             {
                 List<DoctorTranslate> doctorTranslates = new List<DoctorTranslate>();
                 Doctor doctor = _autoMapper.Map<Doctor>(model);
-                foreach (var t in model.Tranlates)
+                foreach (var t in model.Translates)
                 {
                     doctorTranslates.Add(new DoctorTranslate
                     {
