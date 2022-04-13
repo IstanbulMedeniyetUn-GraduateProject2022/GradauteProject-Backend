@@ -70,6 +70,9 @@ namespace GraduateProject.CP
                 });
             services.AddScoped<IAuthService, AuthService>();
             services.AddTransient<IMailService, SendGridMailService>();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllers();
             services.AddRazorPages();
             services.AddSwaggerGen(c =>

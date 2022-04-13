@@ -53,7 +53,7 @@ namespace GraduateProject.Common.Services.Doctors
                 {
                     doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
-                doctor.Tranlates = doctorTranslates;
+                doctor.Translates = doctorTranslates;
                 _context.Add(doctor);
                 await _context.SaveChangesAsync();
                 return true;
@@ -107,7 +107,7 @@ namespace GraduateProject.Common.Services.Doctors
                     Id = d.Id,
                     Email = d.Email,
                     Phone = d.Phone,
-                    FullName = d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).LastName,
+                    FullName = d.Translates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Translates.FirstOrDefault(d => d.LanguageId == langId).LastName,
                     DepartmentName = d.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
                     MedicalCenterName = d.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
                     Location = d.Location,
@@ -124,7 +124,7 @@ namespace GraduateProject.Common.Services.Doctors
         {
             try
             {
-                var doctor = await _context.Doctors.Include(d => d.Tranlates).FirstOrDefaultAsync(d => d.Id == id);
+                var doctor = await _context.Doctors.Include(d => d.Translates).FirstOrDefaultAsync(d => d.Id == id);
 
                 if (doctor == null)
                     return null;
@@ -150,7 +150,7 @@ namespace GraduateProject.Common.Services.Doctors
                     Id = d.Id,
                     Email = d.Email,
                     Phone = d.Phone,
-                    FullName = d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Tranlates.FirstOrDefault(d => d.LanguageId == langId).LastName,
+                    FullName = d.Translates.FirstOrDefault(d => d.LanguageId == langId).FirstName + d.Translates.FirstOrDefault(d => d.LanguageId == langId).LastName,
                     DepartmentName = d.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
                     MedicalCenterName = d.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
                     Location = d.Location,
@@ -188,7 +188,7 @@ namespace GraduateProject.Common.Services.Doctors
 
                     doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
-                doctor.Tranlates = doctorTranslates;
+                doctor.Translates = doctorTranslates;
                 _context.Update(doctor);
                 await _context.SaveChangesAsync();
                 return true;

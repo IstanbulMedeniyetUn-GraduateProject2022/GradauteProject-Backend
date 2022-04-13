@@ -10,22 +10,24 @@ namespace GraduateProject.Common.Services.Lookups
 {
     public interface ILookupsCRUDService
     {
+        
         #region City
 
         Task<List<SysCityDTO>> GetSysCities();
         Task<List<SysCityDTO>> CityList();
+        Task<SysCityDTO> GetCityById(int id);
         Task<SysCityDTO> AddCity(SysCityDTO model);
         Task<bool> DeleteCity(int id);
         Task<bool> UpdateCity(SysCityDTO model);
 
         #endregion
 
-        // TODO Place Type
-
+        
         #region Place Type
 
         Task<List<SysPlaceTypeDTO>> GetSysPlaceTypes();
         Task<List<SysPlaceTypeDTO>> PlaceTypesList();
+        Task<SysPlaceTypeDTO> GetPlaceTypeById(int id);
         Task<SysPlaceTypeDTO> AddPlaceType(SysPlaceTypeDTO model);
         Task<bool> DeletePlaceType(int id);
         Task<bool> UpdatePlaceType(SysPlaceTypeDTO model);
@@ -37,6 +39,7 @@ namespace GraduateProject.Common.Services.Lookups
 
         Task<List<DepartmentDTO>> GetSysDepartments();
         Task<List<DepartmentDTO>> DepartmentList();
+        Task<DepartmentDTO> GetDepartmentById(int id);
         Task<DepartmentDTO> AddDepartment(DepartmentDTO model);
         Task<bool> DeleteDepartment(int id);
         Task<bool> UpdateDepartment(DepartmentDTO model);

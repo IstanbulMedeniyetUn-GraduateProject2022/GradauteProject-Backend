@@ -1,5 +1,9 @@
 ﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.PlaceToVisit;
+using GraduateProject.Common.Enums;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.PlacesToVisit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,106 +18,128 @@ namespace GraduateProject.CP.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class PlaceToVisitController : ControllerBase
+    public class PlaceToVisitController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public PlaceToVisitController(ApplicationDbContext context)
+        private readonly IPlacesToVisitService _placeToVisitsService;
+        public PlaceToVisitController(IPlacesToVisitService placeToVisitsService)
         {
-            _context = context;
+            _placeToVisitsService = placeToVisitsService;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<PlaceToVisit>>> GetItems()
+        public async Task<ActionResult<IEnumerable<PlaceToVisitListDTO>>> GetAcitvatedPlaces()
         {
-            return await _context.PlaceToVisits.ToListAsync();
+            try
+            {
+                var result = await _placeToVisitsService.GetAcitvatedPlaces();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<PlaceToVisitListDTO>>> GetUnActivatedPlaces()
+        {
+            try
+            {
+                var result = await _placeToVisitsService.GetUnActivatedPlaces();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<PlaceToVisit>> GetItem(int id)
+        public async Task<ActionResult<PlaceToVisitDTO>> GetPlaceById(int id)
         {
-            var item = await _context.PlaceToVisits.FindAsync(id);
+            try
+            {
+                var result = await _placeToVisitsService.GetPlaceById(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, result.ToString()));
 
-            return item == null ? NotFound() : Ok(item);
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+
         }
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public async Task<IActionResult> UpdateItem(int id, PlaceToVisit item)
+        public async Task<IActionResult> UpdatePlace(PlaceToVisitDTO place)
         {
-            if (id != item.Id)
-            {
-                return BadRequest();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.PlaceToVisits.Update(item);
-            _context.Entry(item).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
 
-            return Ok(item);
+                var result = await _placeToVisitsService.UpdatePlace(place);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<PlaceToVisit>> CreateItem(PlaceToVisit item)
+        public async Task<ActionResult> AddPlace(PlaceToVisitDTO place)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
+
+                var result = await _placeToVisitsService.AddPlace(place);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
             }
-            else
+            catch (Exception ex)
             {
-                _context.PlaceToVisits.Add(item);
-                await _context.SaveChangesAsync();
-
-                return Ok(item);
-
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
         }
 
 
         [HttpDelete]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<PlaceToVisit>> DeleteItem(int id)
+        public async Task<ActionResult<PlaceToVisitDTO>> DeletePlace(int id)
         {
-            var item = await _context.PlaceToVisits.FindAsync(id);
-            if (item == null)
+            try
             {
-                return NotFound();
+
+                var result = await _placeToVisitsService.DeletePlace(id);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
-            _context.PlaceToVisits.Remove(item);
-            await _context.SaveChangesAsync();
-
-            return Ok(item);
         }
-
-        private bool ItemExists(int id)
-        {
-            return _context.PlaceToVisits.Any(e => e.Id == id);
-        }
-
-
     }
 }

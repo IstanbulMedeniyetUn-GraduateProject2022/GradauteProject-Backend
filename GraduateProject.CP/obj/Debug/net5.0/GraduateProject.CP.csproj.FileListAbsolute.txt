@@ -299,3 +299,4 @@ C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.CP\obj\Debug\net5.0\GraduateProject.CP.MvcApplicationPartsAssemblyInfo.cs

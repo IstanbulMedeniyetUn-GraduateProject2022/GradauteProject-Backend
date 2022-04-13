@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using GraduateProject.Common.Data;
-using GraduateProject.Common.DTOs.Doctor;
+﻿using GraduateProject.Common.DTOs.Lookups;
 using GraduateProject.Common.Enums;
 using GraduateProject.Common.Extentions;
-using GraduateProject.Common.Models;
-using GraduateProject.Common.Services.Doctors;
-using Microsoft.AspNetCore.Authorization;
+using GraduateProject.Common.Models.SysModels;
+using GraduateProject.Common.Services.Lookups;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,39 +12,23 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
-    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorController : Controller
+    public class CityController : Controller
     {
-        private readonly IDoctorsService _doctorsService;
-        public DoctorController(IDoctorsService doctorsService)
+        private readonly ILookupsCRUDService _lookupsCRUDService;
+        public CityController(ILookupsCRUDService lookupsCRUDService)
         {
-            _doctorsService = doctorsService;  
+            _lookupsCRUDService = lookupsCRUDService;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<DoctorListDTO>>> GetActivatedDoctors()
+        public async Task<ActionResult<IEnumerable<List<SysCity>>>> GetSysCities()
         {
             try
             {
-                var result = await _doctorsService.GetActivatedDoctors();
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch(Exception ex)
-            {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
-            }
-        }
-
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<DoctorListDTO>>> GetUnActivatedDoctors()
-        {
-            try
-            {
-                var result = await _doctorsService.GetUnActivatedDoctors();
+                var result = await _lookupsCRUDService.GetSysCities();
                 return Json(new ResponseResult(ResponseType.Success, result));
             }
             catch (Exception ex)
@@ -58,18 +38,33 @@ namespace GraduateProject.CP.Controllers
         }
 
         [HttpGet]
-        [Route("[action]/{id}")]
-        public async Task<ActionResult<DoctorDTO>> GetDoctorById(int id)
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<List<SysCity>>>> CityList()
         {
             try
             {
-                var result = await _doctorsService.GetDoctorById(id);
+                var result = await _lookupsCRUDService.CityList();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
+
+        [HttpGet] 
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<SysCityDTO>> GetCityById(int id)
+        {
+            try
+            {
+                var result = await _lookupsCRUDService.GetCityById(id);
                 if (result == null)
                     return Json(new ResponseResult(ResponseType.Error, result.ToString()));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
@@ -78,14 +73,14 @@ namespace GraduateProject.CP.Controllers
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public async Task<IActionResult> UpdateDoctor(DoctorDTO doctor)
+        public async Task<IActionResult> UpdateCity(SysCityDTO sysCityDTO)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
 
-                var result = await _doctorsService.UpdateDoctor(doctor);
+                var result = await _lookupsCRUDService.UpdateCity(sysCityDTO);
                 if (result == false)
                     return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
 
@@ -100,15 +95,15 @@ namespace GraduateProject.CP.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult> AddDoctor(DoctorDTO doctor)
+        public async Task<ActionResult> AddCity(SysCityDTO sysCityDTO)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
 
-                var result = await _doctorsService.AddDoctor(doctor);
-                if (result == false)
+                var result = await _lookupsCRUDService.AddCity(sysCityDTO);
+                if (result == null)
                     return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
@@ -123,11 +118,11 @@ namespace GraduateProject.CP.Controllers
 
         [HttpDelete]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<DoctorDTO>> DeleteDoctor(int id)
+        public async Task<ActionResult<SysCityDTO>> DeleteCity(int id)
         {
             try
             {
-                var result = await _doctorsService.DeleteDoctor(id);
+                var result = await _lookupsCRUDService.DeleteCity(id);
                 if (result == false)
                     return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
 

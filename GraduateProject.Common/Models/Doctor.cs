@@ -71,7 +71,7 @@ namespace GraduateProject.Common.Models
         public virtual MedicalCenter MedicalCenter { get; set; }
 
         public virtual ICollection<Review> Reviews { get; set; }
-        public virtual ICollection<DoctorTranslate> Tranlates { get; set; }
+        public virtual ICollection<DoctorTranslate> Translates { get; set; }
 
     }
 

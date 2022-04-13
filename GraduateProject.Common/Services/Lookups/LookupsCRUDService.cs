@@ -154,6 +154,22 @@ namespace GraduateProject.Common.Services.Lookups
             }
         }
 
+        public async Task<SysCityDTO> GetCityById(int id)
+        {
+            try
+            {
+                var city = await _context.SysCities.Include(d => d.Translates).FirstOrDefaultAsync(d => d.Id == id);
+                if (city == null)
+                    return null;
+                SysCityDTO model = _autoMapper.Map<SysCityDTO>(city);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         #endregion
 
 
@@ -277,6 +293,23 @@ namespace GraduateProject.Common.Services.Lookups
             }
         }
 
+        public async Task<SysPlaceTypeDTO> GetPlaceTypeById(int id)
+        {
+            try
+            {
+                var placeType = await _context.SysPlaceTypes.Include(d => d.Translates).FirstOrDefaultAsync(d => d.Id == id);
+                if (placeType == null)
+                    return null;
+                SysPlaceTypeDTO model = _autoMapper.Map<SysPlaceTypeDTO>(placeType);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
         #endregion
 
 
@@ -395,6 +428,22 @@ namespace GraduateProject.Common.Services.Lookups
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        public async Task<DepartmentDTO> GetDepartmentById(int id)
+        {
+            try 
+            {
+                var department = await _context.Departments.Include(d => d.Translates).FirstOrDefaultAsync(d => d.Id == id);
+                if (department == null)
+                    return null;
+                DepartmentDTO model = _autoMapper.Map<DepartmentDTO>(department);
+                return model;
+            }
+            catch (Exception ex) 
+            {
+                return null;
             }
         }
 

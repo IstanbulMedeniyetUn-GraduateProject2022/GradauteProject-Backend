@@ -1,5 +1,9 @@
 ﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.Department;
+using GraduateProject.Common.Enums;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.Lookups;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,107 +18,126 @@ namespace GraduateProject.CP.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : ControllerBase
+    public class DepartmentController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public DepartmentController(ApplicationDbContext context)
+        private readonly ILookupsCRUDService _lookupsCRUDService;
+        public DepartmentController(ILookupsCRUDService lookupsCRUDService)
         {
-            _context = context;
+            _lookupsCRUDService = lookupsCRUDService;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<Department>>> GetItems()
+        public async Task<ActionResult<IEnumerable<List<Department>>>> GetSysDepartments()
         {
-            return await _context.Departments.ToListAsync();
+            try
+            {
+                var result = await _lookupsCRUDService.GetSysDepartments();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<ActionResult<IEnumerable<List<Department>>>> DepartmentList()
+        {
+            try
+            {
+                var result = await _lookupsCRUDService.DepartmentList();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Department>> GetItem(int id)
+        public async Task<ActionResult<DepartmentDTO>> GetDepartmentById(int id)
         {
-            var item = await _context.Departments.FindAsync(id);
+            try
+            {
+                var result = await _lookupsCRUDService.GetDepartmentById(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, result.ToString()));
 
-            return item == null ? NotFound() : Ok(item);
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+
         }
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public async Task<IActionResult> UpdateItem(int id, Department item)
+        public async Task<IActionResult> UpdateDepartment(DepartmentDTO department)
         {
-            if (id != item.Id)
-            {
-                return BadRequest();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Departments.Update(item);
-            _context.Entry(item).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!IsItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
 
-            return Ok(item);
+                var result = await _lookupsCRUDService.UpdateDepartment(department);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<Department>> CreateItem(Department item)
+        public async Task<ActionResult> AddDepartment(DepartmentDTO department)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
+
+                var result = await _lookupsCRUDService.AddDepartment(department);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
             }
-            else
+            catch (Exception ex)
             {
-                _context.Departments.Add(item);
-                await _context.SaveChangesAsync();
-
-                return Ok(item);
-
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
         }
 
 
         [HttpDelete]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Department>> DeleteItem(int id)
+        public async Task<ActionResult<DepartmentDTO>> DeleteDepartment(int id)
         {
-            var item = await _context.Departments.FindAsync(id);
-            if (item == null)
+            try
             {
-                
-                return NotFound();
+                var result = await _lookupsCRUDService.DeleteDepartment(id);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
-            _context.Departments.Remove(item);
-            await _context.SaveChangesAsync();
-
-            return Ok(item);
         }
-
-        private bool IsItemExists(int id)
-        {
-            return _context.Departments.Any(e => e.Id == id);
-        }
-
-
     }
 }
