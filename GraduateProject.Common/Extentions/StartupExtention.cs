@@ -19,19 +19,19 @@ namespace GraduateProject.Common.Extentions
     {
         public static void AddServices(this IServiceCollection services)
         {
-            services.AddSingleton<IDoctorsService, DoctorsService>();
+            services.AddScoped<IDoctorsService, DoctorsService>();
 
-            services.AddSingleton<IFileManagerService, FileManagerService>();
+            services.AddScoped<IFileManagerService, FileManagerService>();
 
-            services.AddSingleton<IHotelsService, HotelsService>();
+            services.AddScoped<IHotelsService, HotelsService>();
 
-            services.AddSingleton<ILanguageService, LanguageService>();
+            services.AddScoped<ILanguageService, LanguageService>();
 
-            services.AddSingleton<ILookupsCRUDService, LookupsCRUDService>();
+            services.AddScoped<ILookupsCRUDService, LookupsCRUDService>();
 
-            services.AddSingleton<IMedicalCentersService, MedicalCentersService>();
+            services.AddScoped<IMedicalCentersService, MedicalCentersService>();
 
-            services.AddSingleton<IPlacesToVisitService, PlacesToVisitService>();
+            services.AddScoped<IPlacesToVisitService, PlacesToVisitService>();
 
             //services.AddSingleton<IReviewsService, ReviewsService>();
 
