@@ -146,7 +146,7 @@ namespace GraduateProject.Common.Services.Hotels
             try
             {
                 List<HotelTranslate> translates = new List<HotelTranslate>();
-                Hotel medicalCenter = _autoMapper.Map<Hotel>(model);
+                Hotel hotel = _autoMapper.Map<Hotel>(model);
                 foreach (var t in model.Translates)
                 {
                     translates.Add(new HotelTranslate
@@ -162,10 +162,10 @@ namespace GraduateProject.Common.Services.Hotels
                     if (model.LogoPath != null)
                         await _fileManager.DeleteFileAsync(model.LogoPath);
 
-                    medicalCenter.LogoPath = await _fileManager.UploadFileAsync(model.ImageFile, "hotel", true);
+                    hotel.LogoPath = await _fileManager.UploadFileAsync(model.ImageFile, "hotel", true);
                 }
-                medicalCenter.Translates = translates;
-                _context.Update(medicalCenter);
+                hotel.Translates = translates;
+                _context.Update(hotel);
                 await _context.SaveChangesAsync();
                 return true;
             }

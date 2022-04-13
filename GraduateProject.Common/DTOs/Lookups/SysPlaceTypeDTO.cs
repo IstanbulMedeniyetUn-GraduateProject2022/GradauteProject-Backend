@@ -10,9 +10,7 @@ namespace GraduateProject.Common.DTOs.Lookups
     public class SysPlaceTypeDTO
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public List<SysPlaceTypeTranslateDTO> Translates { get; set; }
 
     }

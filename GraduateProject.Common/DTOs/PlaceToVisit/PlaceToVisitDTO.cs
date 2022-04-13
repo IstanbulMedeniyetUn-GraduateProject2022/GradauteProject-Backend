@@ -52,6 +52,7 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         public int PlaceTypeId { get; set; }
 
         public virtual ICollection<PlaceToVisitTranslateDTO> Translates { get; set; }
+        
     }
 
     public class PlaceToVisitTranslateDTO

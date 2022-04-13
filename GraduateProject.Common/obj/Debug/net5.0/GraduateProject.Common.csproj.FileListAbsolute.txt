@@ -32,3 +32,4 @@ E:\DoctorBey\GradauteProject-Backend\GraduateProject.Common\obj\Debug\net5.0\Gra
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.Common\obj\Debug\net5.0\GraduateProject.Common.AssemblyInfoInputs.cache
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.Common\obj\Debug\net5.0\GraduateProject.Common.AssemblyInfo.cs
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.Common\obj\Debug\net5.0\GraduateProject.Common.csproj.CoreCompileInputs.cache
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.Common\obj\Debug\net5.0\GraduateProject.Common.csproj.AssemblyReference.cache
