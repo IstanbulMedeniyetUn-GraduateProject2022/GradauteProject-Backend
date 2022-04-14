@@ -28,7 +28,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<Department>>>> GetSysDepartments()
+        public async Task<ActionResult<IEnumerable<List<DepartmentDTO>>>> GetSysDepartments()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<Department>>>> DepartmentList()
+        public async Task<ActionResult<IEnumerable<List<DepartmentDTO>>>> DepartmentList()
         {
             try
             {

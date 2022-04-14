@@ -24,7 +24,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<SysCity>>>> GetSysCities()
+        public async Task<ActionResult<IEnumerable<List<SysCityDTO>>>> GetSysCities()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<SysCity>>>> CityList()
+        public async Task<ActionResult<IEnumerable<List<SysCityDTO>>>> CityList()
         {
             try
             {

@@ -1,5 +1,9 @@
 ﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.Review;
+using GraduateProject.Common.Enums;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.Reviews;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,106 +19,126 @@ namespace GraduateProject.CP.Controllers
     [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ReviewController : ControllerBase
+    public class ReviewController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public ReviewController(ApplicationDbContext context)
+        private readonly IReviewsService _reviewsService;
+        public ReviewController(IReviewsService reviewsService)
         {
-            _context = context;
+            _reviewsService = reviewsService;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<Review>>> GetItems()
+        public async Task<ActionResult<IEnumerable<ReviewListDTO>>> GetActivatedReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            try
+            {
+                var result = await _reviewsService.GetAcitvatedReviews();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Review>> GetItem(int id)
+        public async Task<ActionResult<ReviewListDTO>> GetUnActivatedDoctors()
         {
-            var item = await _context.Reviews.FindAsync(id);
+            try
+            {
+                var result = await _reviewsService.GetUnActivatedReviews();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+        }
 
-            return item == null ? NotFound() : Ok(item);
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<ReviewDTO>> GetReviewById(int id)
+        {
+            try
+            {
+                var result = await _reviewsService.GetReviewById(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, result.ToString()));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
+
         }
 
         [HttpPut]
         [Route("[action]/{id}")]
-        public async Task<IActionResult> UpdateItem(int id, Review item)
+        public async Task<IActionResult> UpdateReview(ReviewDTO review)
         {
-            if (id != item.Id)
-            {
-                return BadRequest();
-            }
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Reviews.Update(item);
-            _context.Entry(item).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
 
-            return Ok(item);
+                var result = await _reviewsService.UpdateReview(review);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpPost]
         [Route("[action]")]
-        public async Task<ActionResult<Review>> CreateItem(Review item)
+        public async Task<ActionResult> AddReview(ReviewDTO review)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                    return Json(new ResponseResult(ResponseType.ModelNotValid, "Model State is Not Valid"));
+
+                var result = await _reviewsService.AddReview(review);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
             }
-            else
+            catch (Exception ex)
             {
-                _context.Reviews.Add(item);
-                await _context.SaveChangesAsync();
-
-                return Ok(item);
-
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
         }
 
 
         [HttpDelete]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<Review>> DeleteItem(int id)
+        public async Task<ActionResult<ReviewDTO>> DeleteReview(int id)
         {
-            var item = await _context.Reviews.FindAsync(id);
-            if (item == null)
+            try
             {
-                return NotFound();
+                var result = await _reviewsService.DeleteReview(id);
+                if (result == false)
+                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
-            _context.Reviews.Remove(item);
-            await _context.SaveChangesAsync();
-
-            return Ok(item);
         }
-
-        private bool ItemExists(int id)
-        {
-            return _context.Reviews.Any(e => e.Id == id);
-        }
-
-
     }
 }

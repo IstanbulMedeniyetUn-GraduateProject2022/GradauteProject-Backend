@@ -82,7 +82,7 @@ namespace GraduateProject.Common.Services.PlacesToVisit
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new PlaceToVisitListDTO
+                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits.Where(d => d.IsActive == true).Select(d => new PlaceToVisitListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateProject.Common.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220410191102_init")]
-    partial class init
+    [Migration("20220414125402_initDB")]
+    partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -176,7 +176,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("DeletionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepratmentId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
@@ -198,7 +198,7 @@ namespace GraduateProject.Common.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepratmentId");
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("DepartmentTranslates");
                 });
@@ -450,6 +450,9 @@ namespace GraduateProject.Common.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
@@ -843,14 +846,9 @@ namespace GraduateProject.Common.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SysPlaceTypeId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
-
-                    b.HasIndex("SysPlaceTypeId");
 
                     b.ToTable("SysCityTranslate");
                 });
@@ -880,6 +878,44 @@ namespace GraduateProject.Common.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SysPlaceTypes");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysPlaceTypeTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlaceTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlaceTypeId");
+
+                    b.ToTable("SysPlaceTypeTranslate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1017,7 +1053,7 @@ namespace GraduateProject.Common.Migrations
                 {
                     b.HasOne("GraduateProject.Common.Models.Department", "Department")
                         .WithMany("Translates")
-                        .HasForeignKey("DepratmentId")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1052,7 +1088,7 @@ namespace GraduateProject.Common.Migrations
             modelBuilder.Entity("GraduateProject.Common.Models.DoctorTranslate", b =>
                 {
                     b.HasOne("GraduateProject.Common.Models.Doctor", "Doctor")
-                        .WithMany("Tranlates")
+                        .WithMany("Translates")
                         .HasForeignKey("DoctorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1161,11 +1197,18 @@ namespace GraduateProject.Common.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GraduateProject.Common.Models.SysModels.SysPlaceType", null)
-                        .WithMany("Translates")
-                        .HasForeignKey("SysPlaceTypeId");
-
                     b.Navigation("City");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysPlaceTypeTranslate", b =>
+                {
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysPlaceType", "SysPlaceType")
+                        .WithMany("Translates")
+                        .HasForeignKey("PlaceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SysPlaceType");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1230,7 +1273,7 @@ namespace GraduateProject.Common.Migrations
                 {
                     b.Navigation("Reviews");
 
-                    b.Navigation("Tranlates");
+                    b.Navigation("Translates");
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.Hotel", b =>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GraduateProject.Common.Migrations
 {
-    public partial class init : Migration
+    public partial class initDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -229,7 +229,7 @@ namespace GraduateProject.Common.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DepratmentId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -242,8 +242,8 @@ namespace GraduateProject.Common.Migrations
                 {
                     table.PrimaryKey("PK_DepartmentTranslates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DepartmentTranslates_Departments_DepratmentId",
-                        column: x => x.DepratmentId,
+                        name: "FK_DepartmentTranslates_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
                         principalTable: "Departments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -318,6 +318,32 @@ namespace GraduateProject.Common.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SysCityTranslate",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysCityTranslate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SysCityTranslate_SysCities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "SysCities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlaceToVisits",
                 columns: table => new
                 {
@@ -359,14 +385,13 @@ namespace GraduateProject.Common.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SysCityTranslate",
+                name: "SysPlaceTypeTranslate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    SysPlaceTypeId = table.Column<int>(type: "int", nullable: true),
+                    PlaceTypeId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -376,19 +401,13 @@ namespace GraduateProject.Common.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SysCityTranslate", x => x.Id);
+                    table.PrimaryKey("PK_SysPlaceTypeTranslate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SysCityTranslate_SysCities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "SysCities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SysCityTranslate_SysPlaceTypes_SysPlaceTypeId",
-                        column: x => x.SysPlaceTypeId,
+                        name: "FK_SysPlaceTypeTranslate_SysPlaceTypes_PlaceTypeId",
+                        column: x => x.PlaceTypeId,
                         principalTable: "SysPlaceTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -404,7 +423,8 @@ namespace GraduateProject.Common.Migrations
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -640,9 +660,9 @@ namespace GraduateProject.Common.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DepartmentTranslates_DepratmentId",
+                name: "IX_DepartmentTranslates_DepartmentId",
                 table: "DepartmentTranslates",
-                column: "DepratmentId");
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_CityId",
@@ -725,9 +745,9 @@ namespace GraduateProject.Common.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SysCityTranslate_SysPlaceTypeId",
-                table: "SysCityTranslate",
-                column: "SysPlaceTypeId");
+                name: "IX_SysPlaceTypeTranslate_PlaceTypeId",
+                table: "SysPlaceTypeTranslate",
+                column: "PlaceTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -770,6 +790,9 @@ namespace GraduateProject.Common.Migrations
 
             migrationBuilder.DropTable(
                 name: "SysCityTranslate");
+
+            migrationBuilder.DropTable(
+                name: "SysPlaceTypeTranslate");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

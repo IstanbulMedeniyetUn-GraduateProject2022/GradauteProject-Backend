@@ -196,3 +196,9 @@ E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\refint\
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.pdb
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\GraduateProject.UI.genruntimeconfig.cache
 E:\DoctorBey\GradauteProject-Backend\GraduateProject.UI\obj\Debug\net5.0\ref\GraduateProject.UI.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\18120212004\Documents\GitHub\GradauteProject-Backend\GraduateProject.UI\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll

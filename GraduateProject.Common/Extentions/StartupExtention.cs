@@ -6,6 +6,7 @@ using GraduateProject.Common.Services.Languages;
 using GraduateProject.Common.Services.Lookups;
 using GraduateProject.Common.Services.MedicalCenters;
 using GraduateProject.Common.Services.PlacesToVisit;
+using GraduateProject.Common.Services.Reviews;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace GraduateProject.Common.Extentions
 
             services.AddScoped<IPlacesToVisitService, PlacesToVisitService>();
 
-            //services.AddSingleton<IReviewsService, ReviewsService>();
+            services.AddScoped<IReviewsService, ReviewsService>();
 
         }
     }

@@ -24,7 +24,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<SysPlaceType>>>> GetSysPlaceTypes()
+        public async Task<ActionResult<IEnumerable<List<SysPlaceTypeDTO>>>> GetSysPlaceTypes()
         {
             try
             {
@@ -39,7 +39,7 @@ namespace GraduateProject.CP.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<SysPlaceType>>>> PlaceTypesList()
+        public async Task<ActionResult<IEnumerable<List<SysPlaceTypeDTO>>>> PlaceTypesList()
         {
             try
             {
