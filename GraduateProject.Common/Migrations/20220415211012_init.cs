@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GraduateProject.Common.Migrations
 {
-    public partial class initDB : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,11 +70,10 @@ namespace GraduateProject.Common.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -87,11 +86,10 @@ namespace GraduateProject.Common.Migrations
                 name: "SysCities",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -104,11 +102,10 @@ namespace GraduateProject.Common.Migrations
                 name: "SysPlaceTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -233,7 +230,7 @@ namespace GraduateProject.Common.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -250,74 +247,6 @@ namespace GraduateProject.Common.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Hotels",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    Rate = table.Column<float>(type: "real", maxLength: 100, nullable: false),
-                    WebSiteLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WhatappNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
-                    LogoPath = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ClicksNumber = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hotels", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Hotels_SysCities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "SysCities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MedicalCenters",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
-                    CityId = table.Column<int>(type: "int", nullable: false),
-                    Rate = table.Column<float>(type: "real", nullable: false),
-                    WorkingTime = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    WorkingTimeWE = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    WebSiteLink = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    WhatappNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
-                    ClicksNumber = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicalCenters", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MedicalCenters_SysCities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "SysCities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SysCityTranslate",
                 columns: table => new
                 {
@@ -327,7 +256,7 @@ namespace GraduateProject.Common.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -344,6 +273,135 @@ namespace GraduateProject.Common.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SysRegions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysRegions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SysRegions_SysCities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "SysCities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SysPlaceTypeTranslate",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceTypeId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SysPlaceTypeTranslate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SysPlaceTypeTranslate_SysPlaceTypes_PlaceTypeId",
+                        column: x => x.PlaceTypeId,
+                        principalTable: "SysPlaceTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Hotels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    RegionId = table.Column<int>(type: "int", nullable: false),
+                    Rate = table.Column<float>(type: "real", maxLength: 100, nullable: false),
+                    WebSiteLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WhatappNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
+                    LogoPath = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ClicksNumber = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hotels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Hotels_SysCities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "SysCities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Hotels_SysRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "SysRegions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MedicalCenters",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
+                    CityId = table.Column<int>(type: "int", nullable: false),
+                    RegionId = table.Column<int>(type: "int", nullable: false),
+                    Rate = table.Column<float>(type: "real", nullable: false),
+                    WorkingTime = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    WorkingTimeWE = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    WebSiteLink = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    WhatappNumber = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: true),
+                    ClicksNumber = table.Column<int>(type: "int", nullable: false),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicalCenters", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MedicalCenters_SysCities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "SysCities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MedicalCenters_SysRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "SysRegions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PlaceToVisits",
                 columns: table => new
                 {
@@ -352,6 +410,7 @@ namespace GraduateProject.Common.Migrations
                     Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(14)", maxLength: 14, nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: false),
+                    RegionId = table.Column<int>(type: "int", nullable: false),
                     Rate = table.Column<float>(type: "real", nullable: false),
                     WorkingTime = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
                     WorkingTimeWE = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
@@ -363,7 +422,7 @@ namespace GraduateProject.Common.Migrations
                     ClicksNumber = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -382,30 +441,35 @@ namespace GraduateProject.Common.Migrations
                         principalTable: "SysPlaceTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlaceToVisits_SysRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "SysRegions",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "SysPlaceTypeTranslate",
+                name: "SysRegionTranslate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PlaceTypeId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RegionId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SysPlaceTypeTranslate", x => x.Id);
+                    table.PrimaryKey("PK_SysRegionTranslate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SysPlaceTypeTranslate_SysPlaceTypes_PlaceTypeId",
-                        column: x => x.PlaceTypeId,
-                        principalTable: "SysPlaceTypes",
+                        name: "FK_SysRegionTranslate_SysRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "SysRegions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -421,7 +485,7 @@ namespace GraduateProject.Common.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -457,10 +521,11 @@ namespace GraduateProject.Common.Migrations
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     MedicalCenterId = table.Column<int>(type: "int", nullable: true),
                     CityId = table.Column<int>(type: "int", nullable: false),
+                    RegionId = table.Column<int>(type: "int", nullable: false),
                     ClicksNumber = table.Column<int>(type: "int", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -485,6 +550,11 @@ namespace GraduateProject.Common.Migrations
                         principalTable: "SysCities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Doctors_SysRegions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "SysRegions",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -498,7 +568,7 @@ namespace GraduateProject.Common.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -525,7 +595,7 @@ namespace GraduateProject.Common.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -554,7 +624,7 @@ namespace GraduateProject.Common.Migrations
                     WorkingPlace = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     LanguageId = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -587,7 +657,7 @@ namespace GraduateProject.Common.Migrations
                     PlaceToVisitId = table.Column<int>(type: "int", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeletionDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -680,6 +750,11 @@ namespace GraduateProject.Common.Migrations
                 column: "MedicalCenterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_RegionId",
+                table: "Doctors",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DoctorTranslates_DoctorId",
                 table: "DoctorTranslates",
                 column: "DoctorId");
@@ -690,6 +765,11 @@ namespace GraduateProject.Common.Migrations
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Hotels_RegionId",
+                table: "Hotels",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HotelTranslates_HotelId",
                 table: "HotelTranslates",
                 column: "HotelId");
@@ -698,6 +778,11 @@ namespace GraduateProject.Common.Migrations
                 name: "IX_MedicalCenters_CityId",
                 table: "MedicalCenters",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MedicalCenters_RegionId",
+                table: "MedicalCenters",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MedicalCenterTranslates_MedicalCenterId",
@@ -713,6 +798,11 @@ namespace GraduateProject.Common.Migrations
                 name: "IX_PlaceToVisits_PlaceTypeId",
                 table: "PlaceToVisits",
                 column: "PlaceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlaceToVisits_RegionId",
+                table: "PlaceToVisits",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PlaceToVisitTranslates_PlaceToVisitId",
@@ -748,6 +838,16 @@ namespace GraduateProject.Common.Migrations
                 name: "IX_SysPlaceTypeTranslate_PlaceTypeId",
                 table: "SysPlaceTypeTranslate",
                 column: "PlaceTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SysRegions_CityId",
+                table: "SysRegions",
+                column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SysRegionTranslate_RegionId",
+                table: "SysRegionTranslate",
+                column: "RegionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -795,6 +895,9 @@ namespace GraduateProject.Common.Migrations
                 name: "SysPlaceTypeTranslate");
 
             migrationBuilder.DropTable(
+                name: "SysRegionTranslate");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -817,6 +920,9 @@ namespace GraduateProject.Common.Migrations
 
             migrationBuilder.DropTable(
                 name: "SysPlaceTypes");
+
+            migrationBuilder.DropTable(
+                name: "SysRegions");
 
             migrationBuilder.DropTable(
                 name: "SysCities");

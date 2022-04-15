@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.Common.Models.SysModels
 {
-    public class SysCity : BaseEntity<int>
+    public class SysCity : BaseEntityNoIdentity<int>
     {
         public ICollection<SysCityTranslate> Translates { get; set; }
     }

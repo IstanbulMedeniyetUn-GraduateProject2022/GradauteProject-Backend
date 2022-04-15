@@ -60,7 +60,13 @@ namespace GraduateProject.Common.Models
         public int CityId { get; set; }
 
         [ForeignKey(nameof(CityId))]
-        public SysCity City { get; set; } 
+        public SysCity City { get; set; }
+
+        [Required]
+        public int RegionId { get; set; }
+
+        [ForeignKey(nameof(RegionId))]
+        public SysRegion Region { get; set; }
 
         public int ClicksNumber { get; set; }
 

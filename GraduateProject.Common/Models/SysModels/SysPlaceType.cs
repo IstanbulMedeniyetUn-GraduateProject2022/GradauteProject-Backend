@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.Common.Models.SysModels
 {
-    public class SysPlaceType : BaseEntity<int>
+    public class SysPlaceType : BaseEntityNoIdentity<int>
     {
         public ICollection<SysPlaceTypeTranslate> Translates { get; set; }
     }

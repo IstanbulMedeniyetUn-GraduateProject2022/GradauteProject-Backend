@@ -36,6 +36,13 @@ namespace Pal.Web.Extensions
 
             #endregion
 
+            #region SysRegions
+
+            CreateMap<SysRegion, SysRegionDTO>().ReverseMap();
+            CreateMap<SysRegionTranslate, SysRegionTranslateDTO>().ReverseMap();
+
+            #endregion
+
             #region SysPlaceTypes
 
             CreateMap<SysPlaceType, SysPlaceTypeDTO>().ReverseMap();

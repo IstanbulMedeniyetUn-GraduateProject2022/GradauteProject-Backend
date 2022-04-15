@@ -172,6 +172,144 @@ namespace GraduateProject.Common.Services.Lookups
 
         #endregion
 
+        #region Region
+
+        public async Task<List<SysRegionDTO>> GetSysRegions()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+
+            return await _context.SysRegions.Select(x => new SysRegionDTO
+            {
+                Id = x.Id,
+                Name = x.Translates.FirstOrDefault(x => x.LanguageId == langId).Name
+
+            }).ToListAsync();
+        }
+        public async Task<List<SysRegionDTO>> RegionList()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                List<SysRegionDTO> result = await _context.SysRegions.Select(a => new SysRegionDTO
+                {
+                    Id = a.Id,
+                    Name = a.Translates.FirstOrDefault(a => a.LanguageId == langId).Name,
+                    CityId = a.CityId,
+                    CityName = a.SysCity.Translates.FirstOrDefault(t => t.LanguageId == langId).Name,
+
+                    Translates = a.Translates.Select(t => new SysRegionTranslateDTO
+                    {
+                        Id = t.Id,
+                        RegionId = t.RegionId,
+                        LanguageId = t.LanguageId,
+                        Name = t.Name,
+                    }).ToList()
+
+                }).ToListAsync();
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public async Task<SysRegionDTO> GetRegionById(int id)
+        {
+            try
+            {
+                var region = await _context.SysRegions.Include(d => d.Translates).FirstOrDefaultAsync(d => d.Id == id);
+                if (region == null)
+                    return null;
+                SysRegionDTO model = _autoMapper.Map<SysRegionDTO>(region);
+                return model;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<SysRegionDTO> AddRegion(SysRegionDTO model)
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                var newId = await _context.SysRegions.AnyAsync() ? await _context.SysRegions.MaxAsync(a => a.Id) + 1 : 1;
+                model.Id = newId;
+                SysRegion sysRegion = _autoMapper.Map<SysRegion>(model);
+                sysRegion.Translates = model.Translates.Select(t => new SysRegionTranslate
+                {
+                    RegionId = newId,
+                    Name = t.Name,
+                    LanguageId = t.LanguageId
+                }).ToList();
+
+                await _context.AddAsync(sysRegion);
+                await _context.SaveChangesAsync();
+
+                model.Translates.ForEach(t =>
+                {
+                    t.Id = sysRegion.Translates.Where(tran => tran.LanguageId == t.LanguageId).FirstOrDefault().Id;
+                });
+                return model;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public async Task<bool> DeleteRegion(int id)
+        {
+            try
+            {
+                if (await _context.Doctors.AnyAsync(a => a.RegionId == id)
+                        || await _context.MedicalCenters.AnyAsync(a => a.RegionId == id)
+                        || await _context.Hotels.AnyAsync(a => a.RegionId == id)
+                        || await _context.PlaceToVisits.AnyAsync(a => a.RegionId == id))
+
+                    return false;
+
+
+                var region = await _context.SysRegions.FirstOrDefaultAsync(a => a.Id == id);
+                
+                _context.SysRegions.Remove(region);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateRegion(SysRegionDTO model)
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                var sysRegion = _autoMapper.Map<SysRegion>(model);
+                sysRegion.Translates = model.Translates.Select(a => new SysRegionTranslate
+                {
+                    Id = a.Id,
+                    RegionId = model.Id,
+                    Name = a.Name,
+                    LanguageId = a.LanguageId,
+                }).ToList();
+                _context.Update(sysRegion);
+                await _context.SaveChangesAsync();
+                model.Translates.ForEach(t =>
+                {
+                    t.Id = sysRegion.Translates.Where(tran => tran.LanguageId == t.LanguageId).FirstOrDefault().Id;
+                });
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
 
         #region Place Types
 

@@ -22,7 +22,18 @@ namespace GraduateProject.Common.Services.Lookups
 
         #endregion
 
-        
+        #region Region
+
+        Task<List<SysRegionDTO>> GetSysRegions();
+        Task<List<SysRegionDTO>> RegionList();
+        Task<SysRegionDTO> GetRegionById(int id);
+        Task<SysRegionDTO> AddRegion(SysRegionDTO model);
+        Task<bool> DeleteRegion(int id);
+        Task<bool> UpdateRegion(SysRegionDTO model);
+
+        #endregion
+
+
         #region Place Type
 
         Task<List<SysPlaceTypeDTO>> GetSysPlaceTypes();

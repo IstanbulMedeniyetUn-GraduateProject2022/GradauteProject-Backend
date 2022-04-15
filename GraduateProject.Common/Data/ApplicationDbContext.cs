@@ -35,12 +35,21 @@ namespace GraduateProject.Common.Data
         public virtual DbSet<ContactUs> ContactUs { get; set; }
         public virtual DbSet<SysCity> SysCities { get; set; }
         public virtual DbSet<SysPlaceType> SysPlaceTypes { get; set; }
+        public virtual DbSet<SysRegion> SysRegions { get; set; }
 
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.SeedDatabase();
+            //modelBuilder.SeedDatabase();
+
+            modelBuilder.Entity<Hotel>().HasOne(h => h.Region).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Doctor>().HasOne(h => h.Region).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<MedicalCenter>().HasOne(h => h.Region).WithMany().OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<PlaceToVisit>().HasOne(h => h.Region).WithMany().OnDelete(DeleteBehavior.NoAction);
+
         }
+
 
     }
 }

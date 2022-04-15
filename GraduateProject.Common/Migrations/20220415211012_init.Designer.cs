@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraduateProject.Common.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220414125402_initDB")]
-    partial class initDB
+    [Migration("20220415211012_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,14 +139,12 @@ namespace GraduateProject.Common.Migrations
             modelBuilder.Entity("GraduateProject.Common.Models.Department", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -173,7 +171,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DepartmentId")
@@ -227,7 +225,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DepartmentId")
@@ -269,6 +267,9 @@ namespace GraduateProject.Common.Migrations
                     b.Property<float>("Rate")
                         .HasColumnType("real");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WebSiteLink")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -295,6 +296,8 @@ namespace GraduateProject.Common.Migrations
 
                     b.HasIndex("MedicalCenterId");
 
+                    b.HasIndex("RegionId");
+
                     b.ToTable("Doctors");
                 });
 
@@ -308,7 +311,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DoctorId")
@@ -374,7 +377,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -410,6 +413,9 @@ namespace GraduateProject.Common.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("real");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WebSiteLink")
                         .HasColumnType("nvarchar(max)");
 
@@ -420,6 +426,8 @@ namespace GraduateProject.Common.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
+
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Hotels");
                 });
@@ -434,7 +442,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -490,7 +498,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -525,6 +533,9 @@ namespace GraduateProject.Common.Migrations
                     b.Property<float>("Rate")
                         .HasColumnType("real");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WebSiteLink")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -547,6 +558,8 @@ namespace GraduateProject.Common.Migrations
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("RegionId");
+
                     b.ToTable("MedicalCenters");
                 });
 
@@ -560,7 +573,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -616,7 +629,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -654,6 +667,9 @@ namespace GraduateProject.Common.Migrations
                     b.Property<float>("Rate")
                         .HasColumnType("real");
 
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("WebSiteLink")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -674,6 +690,8 @@ namespace GraduateProject.Common.Migrations
 
                     b.HasIndex("PlaceTypeId");
 
+                    b.HasIndex("RegionId");
+
                     b.ToTable("PlaceToVisits");
                 });
 
@@ -687,7 +705,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -732,7 +750,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -790,14 +808,12 @@ namespace GraduateProject.Common.Migrations
             modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysCity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -827,7 +843,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -856,14 +872,12 @@ namespace GraduateProject.Common.Migrations
             modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysPlaceType", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -890,7 +904,7 @@ namespace GraduateProject.Common.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletionDate")
+                    b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
@@ -916,6 +930,75 @@ namespace GraduateProject.Common.Migrations
                     b.HasIndex("PlaceTypeId");
 
                     b.ToTable("SysPlaceTypeTranslate");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegion", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("SysRegions");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegionTranslate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LanguageId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RegionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("SysRegionTranslate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -1078,11 +1161,19 @@ namespace GraduateProject.Common.Migrations
                         .WithMany("Doctors")
                         .HasForeignKey("MedicalCenterId");
 
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("City");
 
                     b.Navigation("Department");
 
                     b.Navigation("MedicalCenter");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.DoctorTranslate", b =>
@@ -1104,7 +1195,15 @@ namespace GraduateProject.Common.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("City");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.HotelTranslate", b =>
@@ -1126,7 +1225,15 @@ namespace GraduateProject.Common.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("City");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.MedicalCenterTranslate", b =>
@@ -1154,9 +1261,17 @@ namespace GraduateProject.Common.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("City");
 
                     b.Navigation("PlaceType");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.PlaceToVisitTranslate", b =>
@@ -1209,6 +1324,28 @@ namespace GraduateProject.Common.Migrations
                         .IsRequired();
 
                     b.Navigation("SysPlaceType");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegion", b =>
+                {
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysCity", "SysCity")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SysCity");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegionTranslate", b =>
+                {
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "City")
+                        .WithMany("Translates")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1305,6 +1442,11 @@ namespace GraduateProject.Common.Migrations
                 });
 
             modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysPlaceType", b =>
+                {
+                    b.Navigation("Translates");
+                });
+
+            modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegion", b =>
                 {
                     b.Navigation("Translates");
                 });

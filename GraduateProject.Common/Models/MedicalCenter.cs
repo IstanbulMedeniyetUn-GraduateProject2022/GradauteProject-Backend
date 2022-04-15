@@ -27,6 +27,12 @@ namespace GraduateProject.Common.Models
         public SysCity City { get; set; }
 
         [Required]
+        public int RegionId { get; set; }
+
+        [ForeignKey(nameof(RegionId))]
+        public SysRegion Region { get; set; }
+
+        [Required]
         public float Rate { get; set; } = 0;
 
         [Required]
