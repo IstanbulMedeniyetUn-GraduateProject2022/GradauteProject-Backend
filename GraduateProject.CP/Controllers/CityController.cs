@@ -3,6 +3,7 @@ using GraduateProject.Common.Enums;
 using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models.SysModels;
 using GraduateProject.Common.Services.Lookups;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CityController : Controller
@@ -82,7 +84,7 @@ namespace GraduateProject.CP.Controllers
 
                 var result = await _lookupsCRUDService.UpdateCity(sysCityDTO);
                 if (result == false)
-                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+                    return Json(new ResponseResult(ResponseType.Error, "The result is null!!"));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
 
@@ -104,7 +106,7 @@ namespace GraduateProject.CP.Controllers
 
                 var result = await _lookupsCRUDService.AddCity(sysCityDTO);
                 if (result == null)
-                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+                    return Json(new ResponseResult(ResponseType.Error, "The result is null!!"));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
 

@@ -54,7 +54,7 @@ namespace GraduateProject.Common.Models
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime DeletionDate { get; set; }
+        public DateTime? DeletionDate { get; set; }
 
         [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }
@@ -79,7 +79,7 @@ namespace GraduateProject.Common.Models
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime DeletionDate { get; set; }
+        public DateTime? DeletionDate { get; set; }
 
         [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }
@@ -107,7 +107,7 @@ namespace GraduateProject.Common.Models
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime DeletionDate { get; set; }
+        public DateTime? DeletionDate { get; set; }
 
         [ScaffoldColumn(false)]
         public bool IsDeleted { get; set; }

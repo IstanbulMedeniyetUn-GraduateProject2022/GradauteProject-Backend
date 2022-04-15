@@ -20,7 +20,7 @@ namespace GraduateProject.Common.Data
             : base(options)
         {
         }
-
+        
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<DepartmentTranslate> DepartmentTranslates { get; set; }
         public virtual DbSet<Doctor> Doctors { get; set; }
@@ -38,6 +38,7 @@ namespace GraduateProject.Common.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.SeedDatabase();
         }
 

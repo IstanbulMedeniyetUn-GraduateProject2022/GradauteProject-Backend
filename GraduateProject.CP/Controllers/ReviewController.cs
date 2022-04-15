@@ -87,7 +87,7 @@ namespace GraduateProject.CP.Controllers
 
                 var result = await _reviewsService.UpdateReview(review);
                 if (result == false)
-                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+                    return Json(new ResponseResult(ResponseType.Error, "The result is null!!"));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
 
@@ -109,7 +109,7 @@ namespace GraduateProject.CP.Controllers
 
                 var result = await _reviewsService.AddReview(review);
                 if (result == false)
-                    return Json(new ResponseResult(ResponseType.Error, "There is an error with the result"));
+                    return Json(new ResponseResult(ResponseType.Error, "The result is null!!"));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
 

@@ -25,7 +25,8 @@ namespace GraduateProject.CP.Controllers
             _mailService = mailService;
             _configuration = configuration;
         }
-        
+
+        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
         {
@@ -34,13 +35,14 @@ namespace GraduateProject.CP.Controllers
                 return BadRequest(ModelState);
             var result = await _authService.RegisterAsync(model);
 
-            if (!result.IsAuthenticated) //so if the username/email is already exit, IsAuthenticated will be false. Otherwise will be true. 
+            //so if the username/email is already exit, IsAuthenticated will be false. Otherwise will be true. 
+            if (!result.IsAuthenticated) 
                 return BadRequest(result.Message);
 
             return Ok(new { Username=result.Username, Email=result.Email, Role=result.Roles, token=result.Token, ExpiresOn=result.ExpiresOn });//return as you want from these values
         }
 
-        [AllowAnonymous] //AllowAnonymous: user who don't have any special validity
+        [AllowAnonymous] 
         [HttpPost("Login")]
         public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
         {
