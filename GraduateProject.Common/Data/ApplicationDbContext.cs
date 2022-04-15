@@ -36,5 +36,10 @@ namespace GraduateProject.Common.Data
         public virtual DbSet<SysCity> SysCities { get; set; }
         public virtual DbSet<SysPlaceType> SysPlaceTypes { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.SeedDatabase();
+        }
+
     }
 }
