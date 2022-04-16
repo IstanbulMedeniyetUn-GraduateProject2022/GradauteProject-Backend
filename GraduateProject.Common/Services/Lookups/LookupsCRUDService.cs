@@ -103,9 +103,8 @@ namespace GraduateProject.Common.Services.Lookups
                     return false;
 
 
-                var city = await _context.SysCities.FirstOrDefaultAsync(a => a.Id == id);
-                city.IsDeleted = true;
-                _context.SysCities.Update(city);
+                var model = await _context.SysCities.FirstOrDefaultAsync(a => a.Id == id);
+                _context.Remove(model);
                 await _context.SaveChangesAsync();
                 return true;
             }
@@ -208,7 +207,7 @@ namespace GraduateProject.Common.Services.Lookups
                 }).ToListAsync();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -276,7 +275,7 @@ namespace GraduateProject.Common.Services.Lookups
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -302,7 +301,7 @@ namespace GraduateProject.Common.Services.Lookups
                 });
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -365,7 +364,7 @@ namespace GraduateProject.Common.Services.Lookups
                 }).ToListAsync();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -375,18 +374,17 @@ namespace GraduateProject.Common.Services.Lookups
         {
             try
             {
-                if (await _context.PlaceToVisits.AnyAsync(a => a.PlaceTypeId == id))
+                if (await _context.SysPlaceTypes.AnyAsync(a => a.Id == id))
                     return false;
 
 
-                var sysPlaceType = await _context.SysPlaceTypes.FirstOrDefaultAsync(a => a.Id == id);
-                sysPlaceType.IsDeleted = true;
-                _context.SysPlaceTypes.Update(sysPlaceType);
+                var model = await _context.SysPlaceTypes.FirstOrDefaultAsync(a => a.Id == id);
+                _context.Remove(model);
                 await _context.SaveChangesAsync();
-
                 return true;
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -425,7 +423,7 @@ namespace GraduateProject.Common.Services.Lookups
                 });
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -485,7 +483,7 @@ namespace GraduateProject.Common.Services.Lookups
                 }).ToListAsync();
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -529,13 +527,12 @@ namespace GraduateProject.Common.Services.Lookups
                 if (await _context.Departments.AnyAsync(a => a.Id == id))
                     return false;
 
-                var department = await _context.Departments.FirstOrDefaultAsync(a => a.Id == id);
-                department.IsDeleted = true;
-                _context.Departments.Update(department);
+                var model = await _context.Departments.FirstOrDefaultAsync(a => a.Id == id);
+                _context.Remove(model);
                 await _context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -563,7 +560,7 @@ namespace GraduateProject.Common.Services.Lookups
                 }
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
