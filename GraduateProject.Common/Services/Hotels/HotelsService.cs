@@ -151,6 +151,7 @@ namespace GraduateProject.Common.Services.Hotels
                 {
                     translates.Add(new HotelTranslate
                     {
+                        Id = t.Id,
                         HotelId = t.HotelId,
                         Name = t.Name,
                         Description = t.Description,
