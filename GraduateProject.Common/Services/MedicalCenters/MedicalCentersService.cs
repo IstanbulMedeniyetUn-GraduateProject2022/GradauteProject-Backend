@@ -156,6 +156,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
                 {
                     translates.Add(new MedicalCenterTranslate
                     {
+                        Id = t.Id,
                         MedicalCenterId = t.MedicalCenterId,
                         Name = t.Name,
                         Description = t.Description,

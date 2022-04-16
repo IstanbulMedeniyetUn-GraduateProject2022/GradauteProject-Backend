@@ -148,6 +148,7 @@ namespace GraduateProject.Common.Services.PlacesToVisit
                 {
                     translates.Add(new PlaceToVisitTranslate
                     {
+                        Id = t.Id,
                         PlaceToVisitId = t.PlaceToVisitId,
                         Name = t.Name,
                         Description = t.Description,

@@ -173,6 +173,7 @@ namespace GraduateProject.Common.Services.Doctors
                 {
                     doctorTranslates.Add(new DoctorTranslate
                     {
+                        Id = t.Id,
                         DoctorId = t.DoctorId,
                         FirstName = t.FirstName,
                         LastName = t.LastName,
