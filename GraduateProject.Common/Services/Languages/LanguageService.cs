@@ -25,11 +25,12 @@ namespace GraduateProject.Common.Services.Languages
                     return null;
 
                 //get request culture
-                var requestCulture = _httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture;
-                if (requestCulture == null)
+                var requestCulture = "";
+                _httpContextAccessor.HttpContext.Request.Cookies.TryGetValue("langId" , out requestCulture);
+                if (requestCulture == "")
                     return null;
 
-                var currentCultureString = requestCulture.Culture.Name; //.Split('-')[0].Trim();
+                var currentCultureString = requestCulture; //.Split('-')[0].Trim();
 
                 
                 return currentCultureString;
