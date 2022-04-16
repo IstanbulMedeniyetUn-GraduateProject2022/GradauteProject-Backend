@@ -70,7 +70,7 @@ namespace GraduateProject.CP.Controllers
         }
 
         [HttpPut]
-        [Route("[action]/{id}")]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateRegion(SysRegionDTO sysRegionDTO)
         {
             try

@@ -76,7 +76,7 @@ namespace GraduateProject.CP.Controllers
         }
 
         [HttpPut]
-        [Route("[action]/{id}")]
+        [Route("[action]")]
         public async Task<IActionResult> UpdateDepartment(DepartmentDTO department)
         {
             try
