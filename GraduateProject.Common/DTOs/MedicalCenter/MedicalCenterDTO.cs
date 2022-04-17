@@ -24,6 +24,10 @@ namespace GraduateProject.Common.DTOs.MedicalCenter
         public int CityId { get; set; }
 
         [Required]
+        public int RegionId { get; set; }
+
+
+        [Required]
         [StringLength(25)]
         public string WorkingTime { get; set; }
 

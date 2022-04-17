@@ -23,6 +23,9 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         public int CityId { get; set; }
 
         [Required]
+        public int RegionId { get; set; }
+
+        [Required]
         public float Rate { get; set; } = 0;
 
         [Required]

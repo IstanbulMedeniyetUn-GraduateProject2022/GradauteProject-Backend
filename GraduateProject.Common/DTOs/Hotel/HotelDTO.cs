@@ -23,6 +23,9 @@ namespace GraduateProject.Common.DTOs.Hotel
         [Required]
         public int CityId { get; set; }
 
+        [Required]
+        public int RegionId { get; set; }
+
         public string WebSiteLink { get; set; }
 
         [StringLength(14)]
