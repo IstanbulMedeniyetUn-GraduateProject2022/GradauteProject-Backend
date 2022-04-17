@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : Controller
@@ -65,7 +65,7 @@ namespace GraduateProject.CP.Controllers
             {
                 var result = await _doctorsService.GetDoctorById(id);
                 if (result == null)
-                    return Json(new ResponseResult(ResponseType.Error, result.ToString()));
+                    return Json(new ResponseResult(ResponseType.Error, result));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
             }

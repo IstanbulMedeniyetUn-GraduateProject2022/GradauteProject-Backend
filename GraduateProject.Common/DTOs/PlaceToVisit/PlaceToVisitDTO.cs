@@ -36,8 +36,8 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        //[Required]
+        //[StringLength(100)]
         public string ImagePath { get; set; }
 
         [StringLength(100)]

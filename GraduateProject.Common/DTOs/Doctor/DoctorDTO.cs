@@ -57,6 +57,9 @@ namespace GraduateProject.Common.DTOs.Doctor
         [Required]
         public int CityId { get; set; }
 
+        [Required]
+        public int RegionId { get; set; }
+
         public virtual ICollection<DoctorTranslateDTO> Translates { get; set; }
     }
 
