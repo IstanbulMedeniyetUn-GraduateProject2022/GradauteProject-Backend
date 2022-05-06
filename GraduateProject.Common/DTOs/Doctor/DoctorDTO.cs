@@ -22,6 +22,8 @@ namespace GraduateProject.Common.DTOs.Doctor
 
         public DateTime? Birthday { get; set; }
 
+        public float Rate { get; set; } = 0;
+
         [Required]
         [StringLength(25)]
         public string WorkingTime { get; set; }
@@ -30,7 +32,7 @@ namespace GraduateProject.Common.DTOs.Doctor
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [StringLength(100)]
+        [Required]
         public string ImagePath { get; set; }
 
         public IFormFile ImageFile { get; set; }
@@ -48,6 +50,7 @@ namespace GraduateProject.Common.DTOs.Doctor
         [Required]
         [StringLength(100)]
         public string Location { get; set; }
+        public int ClicksNumber { get; set; } = 0;
 
         [Required]
         public int DepartmentId { get; set; }
@@ -66,8 +69,11 @@ namespace GraduateProject.Common.DTOs.Doctor
     public class DoctorTranslateDTO
     {
         public int Id { get; set; }
+
+        [Required]
         public string LanguageId { get; set; }
 
+        [Required]
         public int DoctorId { get; set; }
 
         [Required]

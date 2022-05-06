@@ -28,13 +28,16 @@ namespace GraduateProject.Common.DTOs.Hotel
 
         public string WebSiteLink { get; set; }
 
+        public float Rate { get; set; } = 0;
+
         [StringLength(14)]
         public string WhatappNumber { get; set; }
 
-        [StringLength(100)]
         public string LogoPath { get; set; }
 
         public IFormFile ImageFile { get; set; }
+
+        public int ClicksNumber { get; set; } = 0;
 
         [Required]
         [StringLength(100)]
@@ -51,8 +54,10 @@ namespace GraduateProject.Common.DTOs.Hotel
     {
         public int Id { get; set; }
 
+        [Required]
         public int HotelId { get; set; }
 
+        [Required]
         public string LanguageId { get; set; }
 
         [Required]

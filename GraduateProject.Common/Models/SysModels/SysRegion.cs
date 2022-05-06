@@ -25,7 +25,7 @@ namespace GraduateProject.Common.Models.SysModels
         public string Name { get; set; }
 
         [ForeignKey(nameof(RegionId))]
-        public virtual SysRegion City { get; set; }
+        public virtual SysRegion SysRegion { get; set; }
 
     }
 }

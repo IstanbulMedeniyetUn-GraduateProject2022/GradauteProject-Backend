@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using GraduateProject.Common.Models.SysModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
 namespace GraduateProject.Common.Models
 {
-    public partial class Doctor : BaseEntity<int>
+    public class Doctor : BaseEntity<int>
     {
         
         [Required]
@@ -23,7 +24,6 @@ namespace GraduateProject.Common.Models
         
         public DateTime? Birthday { get; set; }
 
-        [Required]
         public float Rate { get; set; } = 0;
 
         [Required]
@@ -34,9 +34,9 @@ namespace GraduateProject.Common.Models
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        
         public string ImagePath { get; set; }
+
 
         [StringLength(100)]
         public string WebSiteLink { get; set; }
@@ -49,12 +49,7 @@ namespace GraduateProject.Common.Models
         public string Address { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string Location { get; set; }
-
-        public int DepartmentId { get; set; }
-        [Column("MedicalCenterId")]
-        public int? MedicalCenterId { get; set; }
 
         [Required]
         public int CityId { get; set; }
@@ -68,11 +63,15 @@ namespace GraduateProject.Common.Models
         [ForeignKey(nameof(RegionId))]
         public SysRegion Region { get; set; }
 
-        public int ClicksNumber { get; set; }
+        public int ClicksNumber { get; set; } = 0;
+
+        public int DepartmentId { get; set; }
 
         [ForeignKey(nameof(DepartmentId))]
         public virtual Department Department { get; set; }
 
+        public int? MedicalCenterId { get; set; }
+       
         [ForeignKey(nameof(MedicalCenterId))]
         public virtual MedicalCenter MedicalCenter { get; set; }
 

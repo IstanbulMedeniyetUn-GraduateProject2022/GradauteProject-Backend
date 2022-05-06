@@ -35,7 +35,6 @@ namespace GraduateProject.Common.DTOs.MedicalCenter
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [StringLength(100)]
         public string ImagePath { get; set; }
 
         public IFormFile ImageFile { get; set; }
@@ -53,6 +52,7 @@ namespace GraduateProject.Common.DTOs.MedicalCenter
 
         [StringLength(14)]
         public string WhatappNumber { get; set; }
+        public int ClicksNumber { get; set; } = 0;
 
         public virtual ICollection<MedicalCenterTranslateDTO> Translates { get; set; }
     }

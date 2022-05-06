@@ -139,6 +139,9 @@ namespace GraduateProject.Common.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClicksNumber")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -235,9 +238,7 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -250,12 +251,10 @@ namespace GraduateProject.Common.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("MedicalCenterId")
-                        .HasColumnType("int")
-                        .HasColumnName("MedicalCenterId");
+                        .HasColumnType("int");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -399,8 +398,7 @@ namespace GraduateProject.Common.Migrations
 
                     b.Property<string>("LogoPath")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -408,7 +406,6 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnType("nvarchar(14)");
 
                     b.Property<float>("Rate")
-                        .HasMaxLength(100)
                         .HasColumnType("real");
 
                     b.Property<int>("RegionId")
@@ -505,9 +502,7 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -636,9 +631,7 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -918,6 +911,7 @@ namespace GraduateProject.Common.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PlaceTypeId")
@@ -1337,13 +1331,13 @@ namespace GraduateProject.Common.Migrations
 
             modelBuilder.Entity("GraduateProject.Common.Models.SysModels.SysRegionTranslate", b =>
                 {
-                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "City")
+                    b.HasOne("GraduateProject.Common.Models.SysModels.SysRegion", "SysRegion")
                         .WithMany("Translates")
                         .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("City");
+                    b.Navigation("SysRegion");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

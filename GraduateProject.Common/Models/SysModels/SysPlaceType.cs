@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace GraduateProject.Common.Models.SysModels
     public class SysPlaceTypeTranslate : BaseEntityTranslate<int>
     {
         public int PlaceTypeId { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [ForeignKey(nameof(PlaceTypeId))]

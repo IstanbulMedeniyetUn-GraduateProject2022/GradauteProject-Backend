@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -25,7 +26,6 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         [Required]
         public int RegionId { get; set; }
 
-        [Required]
         public float Rate { get; set; } = 0;
 
         [Required]
@@ -36,9 +36,10 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        //[Required]
-        //[StringLength(100)]
+        [Required]
         public string ImagePath { get; set; }
+
+        public IFormFile ImageFile { get; set; }
 
         [StringLength(100)]
         public string WebSiteLink { get; set; }
@@ -54,6 +55,8 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
         [Required]
         public int PlaceTypeId { get; set; }
 
+        public int ClicksNumber { get; set; } = 0;
+
         public virtual ICollection<PlaceToVisitTranslateDTO> Translates { get; set; }
         
     }
@@ -62,8 +65,10 @@ namespace GraduateProject.Common.DTOs.PlaceToVisit
     {
         public int Id { get; set; }
 
+        [Required]
         public int PlaceToVisitId { get; set; }
 
+        [Required]
         public string LanguageId { get; set; }
 
         [Required]

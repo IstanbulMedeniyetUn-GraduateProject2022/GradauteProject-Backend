@@ -8,8 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraduateProject.Common.Models
 {
-    public partial class Department : BaseEntityNoIdentity<int>
+    public class Department : BaseEntityNoIdentity<int>
     {
+        public int ClicksNumber { get; set; } = 0;
         public virtual ICollection<Doctor> Doctors { get; set; }
         public virtual ICollection<DepartmentTranslate> Translates { get; set; }
 

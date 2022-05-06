@@ -11,6 +11,7 @@ namespace GraduateProject.Common.DTOs.Lookups
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
         public List<SysCityTranslateDTO> Translates { get; set; }
@@ -20,8 +21,10 @@ namespace GraduateProject.Common.DTOs.Lookups
     {
         public int Id { get; set; }
 
+        [Required]
         public int CityId { get; set; }
 
+        [Required]
         public string LanguageId { get; set; }
 
         [Required]

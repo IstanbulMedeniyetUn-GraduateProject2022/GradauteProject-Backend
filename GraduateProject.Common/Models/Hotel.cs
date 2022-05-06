@@ -32,7 +32,6 @@ namespace GraduateProject.Common.Models
         [ForeignKey(nameof(RegionId))]
         public SysRegion Region { get; set; }
 
-        [StringLength(100)]
         [Required]
         public float Rate { get; set; } = 0;
 
@@ -42,7 +41,6 @@ namespace GraduateProject.Common.Models
         public string WhatappNumber { get; set; }
 
         [Required]
-        [StringLength(100)]
         public string LogoPath { get; set; }
 
         [Required]
@@ -53,7 +51,7 @@ namespace GraduateProject.Common.Models
         [StringLength(100)]
         public string Location { get; set; }
 
-        public int ClicksNumber { get; set; }
+        public int ClicksNumber { get; set; } = 0;
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<HotelTranslate> Translates { get; set; }
     }

@@ -1,5 +1,5 @@
 using GraduateProject.Common.Data;
-using GraduateProject.Common.Extentions;
+using GraduateProject.Common.Extensions;
 using GraduateProject.Common.Models;
 using GraduateProject.CP.Helpers;
 using GraduateProject.CP.Services;

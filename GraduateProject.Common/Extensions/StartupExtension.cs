@@ -14,9 +14,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GraduateProject.Common.Extentions
+namespace GraduateProject.Common.Extensions
 {
-    public static class StartupExtention
+    public static class StartupExtension
     {
         public static void AddServices(this IServiceCollection services)
         {

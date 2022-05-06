@@ -4,13 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using GraduateProject.Common.Models.SysModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
 namespace GraduateProject.Common.Models
 {
-    public partial class PlaceToVisit : BaseEntity<int>
+    public class PlaceToVisit : BaseEntity<int>
     {
 
         [Required]
@@ -44,9 +45,8 @@ namespace GraduateProject.Common.Models
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string ImagePath { get; set; }
+
 
         [StringLength(100)]
         public string WebSiteLink { get; set; }
@@ -65,7 +65,7 @@ namespace GraduateProject.Common.Models
         [ForeignKey(nameof(PlaceTypeId))]
         public SysPlaceType PlaceType { get; set; }
 
-        public int ClicksNumber { get; set; }
+        public int ClicksNumber { get; set; } = 0;
 
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<PlaceToVisitTranslate> Translates { get; set; }

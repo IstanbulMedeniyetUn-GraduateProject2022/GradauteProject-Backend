@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GraduateProject.Common.Models
 {
-    public partial class MedicalCenter : BaseEntity<int>
+    public class MedicalCenter : BaseEntity<int>
     {
         [Required]
         [StringLength(50)]
@@ -43,8 +43,6 @@ namespace GraduateProject.Common.Models
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
-        [StringLength(100)]
         public string ImagePath { get; set; }
 
         [Required]
@@ -61,7 +59,7 @@ namespace GraduateProject.Common.Models
         [StringLength(14)]
         public string WhatappNumber { get; set; }
 
-        public int ClicksNumber { get; set; }
+        public int ClicksNumber { get; set; } = 0;
 
         public virtual ICollection<Doctor> Doctors { get; set; }
 

@@ -22,6 +22,7 @@ namespace GraduateProject.Common.Models
 
         public string Description { get; set; }
 
+        [Required]
         public float Rate { get; set; }
 
         [Required]
