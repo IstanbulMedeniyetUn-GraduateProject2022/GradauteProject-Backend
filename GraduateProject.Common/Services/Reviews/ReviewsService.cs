@@ -45,6 +45,7 @@ namespace GraduateProject.Common.Services.Reviews
             {
                 var review = await _context.Reviews.FirstOrDefaultAsync(d => d.Id == id);
                 review.IsDeleted = true;
+                review.IsActive = false;
                 _context.Reviews.Update(review);
                 await _context.SaveChangesAsync();
                 return true;
@@ -59,7 +60,7 @@ namespace GraduateProject.Common.Services.Reviews
         {
             try 
             {
-                List<ReviewListDTO> result = await _context.Reviews.Where(r => r.IsActive == true).Select(r => new ReviewListDTO
+                List<ReviewListDTO> result = await _context.Reviews.Where(r => r.IsActive == true && r.IsDeleted == false).Select(r => new ReviewListDTO
                 {
                     Id = r.Id,
                     Rate = r.Rate,
@@ -94,7 +95,7 @@ namespace GraduateProject.Common.Services.Reviews
         {
             try 
             {
-                List<ReviewListDTO> result = await _context.Reviews.Where(r => r.IsActive == false).Select(r => new ReviewListDTO
+                List<ReviewListDTO> result = await _context.Reviews.Where(r => r.IsActive == false && r.IsDeleted == true).Select(r => new ReviewListDTO
                 {
                     Id = r.Id,
                     Rate = r.Rate,

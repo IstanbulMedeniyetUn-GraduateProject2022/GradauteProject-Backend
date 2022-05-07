@@ -69,6 +69,7 @@ namespace GraduateProject.Common.Services.Hotels
             {
                 var hotel = await _context.Hotels.FirstOrDefaultAsync(d => d.Id == id);
                 hotel.IsDeleted = true;
+                hotel.IsActive = false;
                 _context.Hotels.Update(hotel);
                 await _context.SaveChangesAsync();
 
@@ -85,7 +86,7 @@ namespace GraduateProject.Common.Services.Hotels
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new HotelListDTO
+                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new HotelListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -125,7 +126,7 @@ namespace GraduateProject.Common.Services.Hotels
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new HotelListDTO
+                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false && d.IsDeleted == true).Select(d => new HotelListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
