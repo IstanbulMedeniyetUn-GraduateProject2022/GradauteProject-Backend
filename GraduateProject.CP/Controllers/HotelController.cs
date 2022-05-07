@@ -64,7 +64,7 @@ namespace GraduateProject.CP.Controllers
             {
                 var result = await _hotelsService.GetHotelById(id);
                 if (result == null)
-                    return Json(new ResponseResult(ResponseType.Error, result.ToString()));
+                    return Json(new ResponseResult(ResponseType.Error, result));
 
                 return Json(new ResponseResult(ResponseType.Success, result));
             }

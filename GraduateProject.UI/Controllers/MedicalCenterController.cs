@@ -1,5 +1,9 @@
 ﻿using GraduateProject.Common.Data;
+using GraduateProject.Common.DTOs.MedicalCenter;
+using GraduateProject.Common.Enums;
+using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.Services.MedicalCenters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,83 +16,46 @@ namespace GraduateProject.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MedicalCenterController : ControllerBase
+    public class MedicalCenterController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public MedicalCenterController(ApplicationDbContext context)
+        private readonly IMedicalCentersService _medicalCentersService;
+        public MedicalCenterController(IMedicalCentersService medicalCentersService)
         {
-            _context = context;
+            _medicalCentersService = medicalCentersService;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<MedicalCenter>>> GetItems()
+        public async Task<ActionResult<IEnumerable<MedicalCenterListDTO>>> GetAcitvatedMedicalCenters()
         {
-            return await _context.MedicalCenters.ToListAsync();
+            try
+            {
+                var result = await _medicalCentersService.GetAcitvatedMedicalCenters();
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<MedicalCenter>> GetItem(int id)
+        public async Task<ActionResult<MedicalCenterDTO>> GetMedicalCenterById(int id)
         {
-            var item = await _context.MedicalCenters.FindAsync(id);
-
-            if (item == null || item.IsActive == false)
-                return NotFound();
-
-            item.ClicksNumber++;
-            _context.MedicalCenters.Update(item);
-            /*
-             //this approach is used for calculating the three medical centers that that should have the same rating, and that because we used AR, EN, TUR in db 
-            float FirstRating, SecondRating, ThirdRating;
-
-            if (MedicalCenterId % 3 == 0)//like 3=> 3 ,2, 1
+            try
             {
-                Rating R1 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == MedicalCenterId select x)
-                .SingleOrDefault();
-                FirstRating = R1.Rate;
+                var result = await _medicalCentersService.GetMedicalCenterById(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, result));
 
-                Rating R2 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId - 1) select x)
-                .SingleOrDefault();
-                SecondRating = R2.Rate;
-
-                Rating R3 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId - 2) select x)
-                .SingleOrDefault();
-                ThirdRating = R3.Rate;
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
-            else if (MedicalCenterId % 3 == 2)//like 5=> 4 ,5, 6
-            {
-                Rating R1 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId - 1) select x)
-                .SingleOrDefault();
-                FirstRating = R1.Rate;
-
-                Rating R2 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == MedicalCenterId select x)
-                .SingleOrDefault();
-                SecondRating = R2.Rate;
-
-                Rating R3 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId + 1) select x)
-                .SingleOrDefault();
-                ThirdRating = R3.Rate;
-            }
-            else  //(MedicalCenterId % 3 == 1)like 4 => 4 ,5, 6
-            {
-                Rating R1 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == MedicalCenterId select x)
-                .SingleOrDefault();
-                FirstRating = R1.Rate;
-
-                Rating R2 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId + 1) select x)
-                .SingleOrDefault();
-                SecondRating = R2.Rate;
-
-                Rating R3 = (from x in Ratings.OfType<Rating>() where x.MedicalCenterId == (MedicalCenterId + 2) select x)
-                .SingleOrDefault();
-                ThirdRating = R3.Rate;
-            }
-            Rate = (FirstRating + SecondRating + ThirdRating) / 3;
-             */
-            return Ok(item);
         }
     }
 }
