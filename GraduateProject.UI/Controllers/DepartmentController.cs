@@ -1,9 +1,5 @@
 ﻿using GraduateProject.Common.Data;
-using GraduateProject.Common.DTOs.Department;
-using GraduateProject.Common.Enums;
-using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
-using GraduateProject.Common.Services.Lookups;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,65 +12,29 @@ namespace GraduateProject.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DepartmentController : Controller
+    public class DepartmentController : ControllerBase
     {
-        #region Fields and Ctor
-        private readonly ILookupsCRUDService _lookupsCRUDService;
-        public DepartmentController(ILookupsCRUDService lookupsCRUDService)
-        {
-            _lookupsCRUDService = lookupsCRUDService;
-        }
-        #endregion
+        private readonly ApplicationDbContext _context;
 
-        #region Methods
-
-        [HttpGet]
-        [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<DepartmentDTO>>>> GetSysDepartment() 
+        public DepartmentController(ApplicationDbContext context)
         {
-            try
-            {
-                var result = await _lookupsCRUDService.GetSysDepartments();
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch(Exception ex)
-            {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
-            }
+            _context = context;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<List<DepartmentDTO>>>> DepartmentList() 
+        public async Task<ActionResult<IEnumerable<Department>>> GetItems()
         {
-            try
-            {
-                var result = await _lookupsCRUDService.DepartmentList();
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch (Exception ex) 
-            {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
-            }
+            return await _context.Departments.ToListAsync();
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<DepartmentDTO>> GetDepartmentById(int id) 
+        public async Task<ActionResult<Department>> GetItem(int id)
         {
-            try
-            {
-                var result = await _lookupsCRUDService.GetDepartmentById(id);
-                if (result == null)
-                    return Json(new ResponseResult(ResponseType.Error, result));
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch(Exception ex)
-            {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
-            }
-        }
+            var item = await _context.Departments.FindAsync(id);
 
-        #endregion
+            return (item == null || item.IsActive == false) ? NotFound() : Ok(item);
+        }
     }
 }

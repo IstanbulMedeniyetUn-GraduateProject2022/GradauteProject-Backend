@@ -1,9 +1,5 @@
 ﻿using GraduateProject.Common.Data;
-using GraduateProject.Common.DTOs.Hotel;
-using GraduateProject.Common.Enums;
-using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
-using GraduateProject.Common.Services.Hotels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,47 +12,83 @@ namespace GraduateProject.UI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HotelController : Controller
+    public class HotelController : ControllerBase
     {
-        private readonly IHotelsService _hotelsService;
-        public HotelController(IHotelsService hotelsService)
+        private readonly ApplicationDbContext _context;
+
+        public HotelController(ApplicationDbContext context)
         {
-            _hotelsService = hotelsService;
+            _context = context;
         }
 
         [HttpGet]
         [Route("[action]")]
-        public async Task<ActionResult<IEnumerable<HotelListDTO>>> GetAcitvatedHotels()
+        public async Task<ActionResult<IEnumerable<Hotel>>> GetItems()
         {
-            try
-            {
-                var result = await _hotelsService.GetAcitvatedHotels();
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch (Exception ex)
-            {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
-            }
+            return await _context.Hotels.ToListAsync();
         }
 
         [HttpGet]
         [Route("[action]/{id}")]
-        public async Task<ActionResult<HotelDTO>> GetHotelById(int id)
+        public async Task<ActionResult<Hotel>> GetItem(int id)
         {
-            try
-            {
-                var result = await _hotelsService.GetHotelById(id);
-                if (result == null)
-                    return Json(new ResponseResult(ResponseType.Error, result));
+            var item = await _context.Hotels.FindAsync(id);
 
-                return Json(new ResponseResult(ResponseType.Success, result));
-            }
-            catch (Exception ex)
+            if (item == null || item.IsActive == false)
+                return NotFound();
+
+            item.ClicksNumber++;
+            _context.Hotels.Update(item);
+            /*
+             * //this approach is used for calculating the three Hotels that that should have the same rating, and that because we used AR, EN, TUR in db 
+            float FirstRating, SecondRating, ThirdRating;
+
+            if (HotelId % 3 == 0)//like 3=> 3 ,2, 1
             {
-                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.HotelId == HotelId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId - 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId - 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
             }
 
+            else if (HotelId % 3 == 2)//like 5=> 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId - 1) select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.HotelId == HotelId select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId + 1) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            else  //(HotelId % 3 == 1)like 4 => 4 ,5, 6
+            {
+                Rating R1 = (from x in Ratings.OfType<Rating>() where x.HotelId == HotelId select x)
+                .SingleOrDefault();
+                FirstRating = R1.Rate;
+
+                Rating R2 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId + 1) select x)
+                .SingleOrDefault();
+                SecondRating = R2.Rate;
+
+                Rating R3 = (from x in Ratings.OfType<Rating>() where x.HotelId == (HotelId + 2) select x)
+                .SingleOrDefault();
+                ThirdRating = R3.Rate;
+            }
+            Rate = (FirstRating + SecondRating + ThirdRating) / 3;
+             */
+            return Ok(item);
         }
-
     }
 }

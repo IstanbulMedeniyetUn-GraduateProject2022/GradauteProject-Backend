@@ -25,8 +25,6 @@ namespace GraduateProject.Common.Models
         [StringLength(50)]
         public string Email { get; set; }
 
-        //public string ImageFile { get; set; }
-
         [Required]
         [StringLength(14)]
         public string Phone { get; set; }
@@ -37,6 +35,6 @@ namespace GraduateProject.Common.Models
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "datetime2")]
-        public DateTime CreationDate { get; set; } = DateTime.Now;
+        public DateTime CreationDate { get; set; }
     }
 }
