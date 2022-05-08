@@ -69,6 +69,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
             {
                 var medicalCenter = await _context.MedicalCenters.FirstOrDefaultAsync(d => d.Id == id);
                 medicalCenter.IsDeleted = true;
+                medicalCenter.IsActive = false;
                 _context.MedicalCenters.Update(medicalCenter);
                 await _context.SaveChangesAsync();
 
@@ -90,7 +91,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<MedicalCenterListDTO> result = await _context.MedicalCenters/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new MedicalCenterListDTO
+                List<MedicalCenterListDTO> result = await _context.MedicalCenters.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new MedicalCenterListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -130,7 +131,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<MedicalCenterListDTO> result = await _context.MedicalCenters/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new MedicalCenterListDTO
+                List<MedicalCenterListDTO> result = await _context.MedicalCenters/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false && d.IsDeleted == true).Select(d => new MedicalCenterListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
