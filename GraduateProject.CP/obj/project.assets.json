@@ -51,6 +51,22 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "Microsoft.AspNetCore.Cors/2.2.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Extensions": "2.2.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "2.2.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Logging.Abstractions": "2.2.0",
+          "Microsoft.Extensions.Options": "2.2.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cors.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.AspNetCore.Cors.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/5.0.0": {
         "type": "package",
         "compile": {
@@ -2603,6 +2619,19 @@
         "lib/net5.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
         "microsoft.aspnetcore.authentication.jwtbearer.5.0.0.nupkg.sha512",
         "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Cors/2.2.0": {
+      "sha512": "LFlTM3ThS3ZCILuKnjy8HyK9/IlDh3opogdbCVx6tMGyDzTQBgMPXLjGDLtMk5QmLDCcP3l1TO3z/+1viA8GUg==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.cors/2.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cors.dll",
+        "lib/netstandard2.0/Microsoft.AspNetCore.Cors.xml",
+        "microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",
+        "microsoft.aspnetcore.cors.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/5.0.0": {
@@ -8295,6 +8324,7 @@
     "net5.0": [
       "GraduateProject.Common >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.0",
+      "Microsoft.AspNetCore.Cors >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.0",
       "Microsoft.EntityFrameworkCore >= 5.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 5.0.0",
@@ -8307,19 +8337,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\18120212004\\.nuget\\packages\\": {}
+    "C:\\Users\\abdal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.CP\\GraduateProject.CP.csproj",
+      "projectUniqueName": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.CP\\GraduateProject.CP.csproj",
       "projectName": "GraduateProject.CP",
-      "projectPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.CP\\GraduateProject.CP.csproj",
-      "packagesPath": "C:\\Users\\18120212004\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.CP\\obj\\",
+      "projectPath": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.CP\\GraduateProject.CP.csproj",
+      "packagesPath": "C:\\Users\\abdal\\.nuget\\packages\\",
+      "outputPath": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.CP\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\18120212004\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdal\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8333,8 +8363,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj": {
-              "projectPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj"
+            "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj": {
+              "projectPath": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj"
             }
           }
         }
@@ -8352,6 +8382,10 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[5.0.0, )"
+          },
+          "Microsoft.AspNetCore.Cors": {
+            "target": "Package",
+            "version": "[2.2.0, )"
           },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
@@ -8412,7 +8446,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

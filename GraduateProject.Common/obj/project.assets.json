@@ -6387,19 +6387,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\18120212004\\.nuget\\packages\\": {}
+    "C:\\Users\\abdal\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
+      "projectUniqueName": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
       "projectName": "GraduateProject.Common",
-      "projectPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
-      "packagesPath": "C:\\Users\\18120212004\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\18120212004\\Documents\\GitHub\\GradauteProject-Backend\\GraduateProject.Common\\obj\\",
+      "projectPath": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.Common\\GraduateProject.Common.csproj",
+      "packagesPath": "C:\\Users\\abdal\\.nuget\\packages\\",
+      "outputPath": "E:\\DoctorBey\\GradauteProject-Backend\\GraduateProject.Common\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\18120212004\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\abdal\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6496,7 +6496,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

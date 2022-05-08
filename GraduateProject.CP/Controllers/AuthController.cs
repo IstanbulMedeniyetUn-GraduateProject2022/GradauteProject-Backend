@@ -1,6 +1,7 @@
 ﻿using GraduateProject.CP.Models;
 using GraduateProject.CP.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,6 @@ namespace GraduateProject.CP.Controllers
             _configuration = configuration;
         }
 
-        [AllowAnonymous]
         [HttpPost("Register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
         {
@@ -52,7 +52,7 @@ namespace GraduateProject.CP.Controllers
 
                 if (result.IsAuthenticated)
                 {
-                    await _mailService.SendEmailAsync(model.Email, "New login", "<h1>Hey!, new login to your account noticed</h1><p>New login to your account at " +DateTime.Now+ "</p>");
+                    //await _mailService.SendEmailAsync(model.Email, "New login", "<h1>Hey!, new login to your account noticed</h1><p>New login to your account at " +DateTime.Now+ "</p>");
                     return Ok(result);
                 }
 

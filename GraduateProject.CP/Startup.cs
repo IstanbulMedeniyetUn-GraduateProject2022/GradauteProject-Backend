@@ -41,6 +41,8 @@ namespace GraduateProject.CP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.Configure<JWT>(Configuration.GetSection("JWT")); //this command for matching jwt class with json part in secret.json file.
             
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -105,6 +107,11 @@ namespace GraduateProject.CP
 
             //app.UseMiddleware(typeof(VisitorCounterMiddleware));
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
 
