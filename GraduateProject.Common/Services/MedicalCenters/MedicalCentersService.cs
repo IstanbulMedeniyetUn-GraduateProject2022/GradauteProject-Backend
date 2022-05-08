@@ -37,22 +37,12 @@ namespace GraduateProject.Common.Services.MedicalCenters
         {
             try
             {
-                List<MedicalCenterTranslate> translates = new List<MedicalCenterTranslate>();
                 MedicalCenter medicalCenter = _autoMapper.Map<MedicalCenter>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new MedicalCenterTranslate
-                    {
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
+               
                 if (model.ImageFile != null)
                 {
                     medicalCenter.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "medicalCenter", true);
                 }
-                medicalCenter.Translates = translates;
                 _context.Add(medicalCenter);
                 await _context.SaveChangesAsync();
                 return true;
@@ -91,7 +81,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<MedicalCenterListDTO> result = await _context.MedicalCenters.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new MedicalCenterListDTO
+                List<MedicalCenterListDTO> result = await _context.MedicalCenters.Where(d => d.IsActive == true).Select(d => new MedicalCenterListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -131,7 +121,7 @@ namespace GraduateProject.Common.Services.MedicalCenters
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<MedicalCenterListDTO> result = await _context.MedicalCenters/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false && d.IsDeleted == true).Select(d => new MedicalCenterListDTO
+                List<MedicalCenterListDTO> result = await _context.MedicalCenters/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new MedicalCenterListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -151,19 +141,8 @@ namespace GraduateProject.Common.Services.MedicalCenters
         {
             try
             {
-                List<MedicalCenterTranslate> translates = new List<MedicalCenterTranslate>();
                 MedicalCenter medicalCenter = _autoMapper.Map<MedicalCenter>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new MedicalCenterTranslate
-                    {
-                        Id = t.Id,
-                        MedicalCenterId = t.MedicalCenterId,
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
+                
                 if (model.ImageFile != null)
                 {
                     if(model.ImagePath != null)
@@ -171,7 +150,6 @@ namespace GraduateProject.Common.Services.MedicalCenters
 
                     medicalCenter.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "medicalCenter", true);
                 }
-                medicalCenter.Translates = translates;
                 _context.Update(medicalCenter);
                 await _context.SaveChangesAsync();
                 return true;

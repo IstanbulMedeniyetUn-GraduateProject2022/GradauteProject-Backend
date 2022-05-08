@@ -37,19 +37,8 @@ namespace GraduateProject.Common.Services.PlacesToVisit
         {
             try
             {
-                List<PlaceToVisitTranslate> translates = new List<PlaceToVisitTranslate>();
                 PlaceToVisit placeToVisit = _autoMapper.Map<PlaceToVisit>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new PlaceToVisitTranslate
-                    {
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
-
-                placeToVisit.Translates = translates;
+                
                 _context.Add(placeToVisit);
                 await _context.SaveChangesAsync();
                 return true;
@@ -83,7 +72,7 @@ namespace GraduateProject.Common.Services.PlacesToVisit
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new PlaceToVisitListDTO
+                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits.Where(d => d.IsActive == true).Select(d => new PlaceToVisitListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -123,7 +112,7 @@ namespace GraduateProject.Common.Services.PlacesToVisit
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits.Where(d => d.IsActive == false && d.IsDeleted == true).Select(d => new PlaceToVisitListDTO
+                List<PlaceToVisitListDTO> result = await _context.PlaceToVisits.Where(d => d.IsActive == false).Select(d => new PlaceToVisitListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -143,21 +132,8 @@ namespace GraduateProject.Common.Services.PlacesToVisit
         {
             try
             {
-                List<PlaceToVisitTranslate> translates = new List<PlaceToVisitTranslate>();
                 PlaceToVisit placeToVisit = _autoMapper.Map<PlaceToVisit>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new PlaceToVisitTranslate
-                    {
-                        Id = t.Id,
-                        PlaceToVisitId = t.PlaceToVisitId,
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
-
-                placeToVisit.Translates = translates;
+                
                 _context.Update(placeToVisit);
                 await _context.SaveChangesAsync();
                 return true;

@@ -4,6 +4,7 @@ using GraduateProject.Common.DTOs.Doctor;
 using GraduateProject.Common.Models;
 using GraduateProject.Common.Services.FileManager;
 using GraduateProject.Common.Services.Languages;
+using GraduateProject.Common.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -36,24 +37,12 @@ namespace GraduateProject.Common.Services.Doctors
         {
             try
             {
-                List<DoctorTranslate> doctorTranslates = new List<DoctorTranslate>();
                 Doctor doctor = _autoMapper.Map<Doctor>(model);
-                foreach (var t in model.Translates)
-                {
-                    doctorTranslates.Add(new DoctorTranslate
-                    {
-                        FirstName = t.FirstName,
-                        LastName = t.LastName,
-                        Gender = t.Gender,
-                        WorkingPlace = t.WorkingPlace,
-                        LanguageId = t.LanguageId
-                    });
-                }
+                
                 if(model.ImageFile != null)
                 {
                     doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
-                doctor.Translates = doctorTranslates;
                 _context.Add(doctor);
                 await _context.SaveChangesAsync();
                 return true;
@@ -103,7 +92,7 @@ namespace GraduateProject.Common.Services.Doctors
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new DoctorListDTO
+                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new DoctorListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -146,7 +135,7 @@ namespace GraduateProject.Common.Services.Doctors
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false && d.IsDeleted == false).Select(d => new DoctorListDTO
+                List<DoctorListDTO> result = await _context.Doctors/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new DoctorListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -168,21 +157,8 @@ namespace GraduateProject.Common.Services.Doctors
         {
             try
             {
-                List<DoctorTranslate> doctorTranslates = new List<DoctorTranslate>();
                 Doctor doctor = _autoMapper.Map<Doctor>(model);
-                foreach (var t in model.Translates)
-                {
-                    doctorTranslates.Add(new DoctorTranslate
-                    {
-                        Id = t.Id,
-                        DoctorId = t.DoctorId,
-                        FirstName = t.FirstName,
-                        LastName = t.LastName,
-                        Gender = t.Gender,
-                        WorkingPlace = t.WorkingPlace,
-                        LanguageId = t.LanguageId
-                    });
-                }
+                
                 if (model.ImageFile != null)
                 {
                     if(model.ImagePath != null)
@@ -190,7 +166,6 @@ namespace GraduateProject.Common.Services.Doctors
 
                     doctor.ImagePath = await _fileManager.UploadFileAsync(model.ImageFile, "doctor", true);
                 }
-                doctor.Translates = doctorTranslates;
                 _context.Update(doctor);
                 await _context.SaveChangesAsync();
                 return true;
@@ -198,6 +173,64 @@ namespace GraduateProject.Common.Services.Doctors
             catch (Exception ex)
             {
                 return false;
+            }
+        }
+
+        #endregion
+
+        #region View Model Methods
+        public async Task<List<DoctorCardViewModel>> GetActivatedDoctorsView()
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                List<DoctorCardViewModel> doctors = await _context.Doctors.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new DoctorCardViewModel
+                {
+                    Id = d.Id,
+                    FirstName = d.Translates.FirstOrDefault(d => d.LanguageId == langId).FirstName,
+                    LastName = d.Translates.FirstOrDefault(d => d.LanguageId == langId).LastName,
+                    Rate = d.Rate,
+                    ClicksNumber = d.ClicksNumber,
+                    WebSiteLink = d.WebSiteLink,
+                    MedicalCenterName = d.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    DepartmentName = d.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name,
+                    WorkingPlace = d.Translates.FirstOrDefault(d => d.LanguageId == langId).WorkingPlace,
+                    ImagePath = d.ImagePath,
+                }).ToListAsync();
+
+                return doctors;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<DoctorViewModel> GetDoctorByIdView(int id)
+        {
+            string langId = _languageService.GetLanguageIdFromRequestAsync();
+            try
+            {
+                Doctor doctor = await _context.Doctors.Include(d => d.Translates.Where(d => d.LanguageId == langId)).FirstOrDefaultAsync(d => d.Id == id);
+
+                if (doctor == null)
+                    return null;
+
+                DoctorViewModel doctorViewModel = _autoMapper.Map<DoctorViewModel>(doctor);
+
+                doctorViewModel.MedicalCenterName = doctor.MedicalCenter.Translates.FirstOrDefault(d => d.LanguageId == langId).Name;
+                doctorViewModel.DepartmentName = doctor.Department.Translates.FirstOrDefault(d => d.LanguageId == langId).Name;
+                doctorViewModel.CityName = doctor.City.Translates.FirstOrDefault(d => d.LanguageId == langId).Name;
+                doctorViewModel.RegionName = doctor.Region.Translates.FirstOrDefault(d => d.LanguageId == langId).Name;
+
+
+                doctorViewModel.Age = doctor.Birthday.Year;
+
+                return doctorViewModel;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using GraduateProject.Common.DTOs.Doctor;
 using GraduateProject.Common.Models;
+using GraduateProject.Common.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,12 @@ namespace GraduateProject.Common.Services.Doctors
         public Task<bool> UpdateDoctor(DoctorDTO doctor);
         public Task<bool> DeleteDoctor(int id);
         public Task<List<DoctorListDTO>> FilterDoctors(int? DepartmentId, int? cityId, int? rate);
+
+        #region View Model Methods
+        public Task<List<DoctorCardViewModel>> GetActivatedDoctorsView();
+
+        public Task<DoctorViewModel> GetDoctorByIdView(int id);
+        #endregion
+
     }
 }

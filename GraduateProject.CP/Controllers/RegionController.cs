@@ -2,6 +2,7 @@
 using GraduateProject.Common.Enums;
 using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Services.Lookups;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class RegionController : Controller

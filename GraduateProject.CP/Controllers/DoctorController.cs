@@ -5,6 +5,7 @@ using GraduateProject.Common.Enums;
 using GraduateProject.Common.Extentions;
 using GraduateProject.Common.Models;
 using GraduateProject.Common.Services.Doctors;
+using GraduateProject.Common.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DoctorController : Controller
@@ -139,6 +140,24 @@ namespace GraduateProject.CP.Controllers
                 return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
             }
 
+        }
+
+        [HttpGet]
+        [Route("[action]/{id}")]
+        public async Task<ActionResult<DoctorViewModel>> GetDoctorByIdView(int id)
+        {
+            try
+            {
+                var result = await _doctorsService.GetDoctorByIdView(id);
+                if (result == null)
+                    return Json(new ResponseResult(ResponseType.Error, "The result is null!!"));
+
+                return Json(new ResponseResult(ResponseType.Success, result));
+            }
+            catch (Exception ex)
+            {
+                return Json(new ResponseResult(ResponseType.Error, ex.GetError()));
+            }
         }
     }
 }

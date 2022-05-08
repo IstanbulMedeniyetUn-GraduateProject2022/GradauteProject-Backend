@@ -22,7 +22,7 @@ namespace GraduateProject.Common.Models
         [StringLength(14)]
         public string Phone { get; set; }
         
-        public DateTime? Birthday { get; set; }
+        public DateTime Birthday { get; set; }
 
         public float Rate { get; set; } = 0;
 

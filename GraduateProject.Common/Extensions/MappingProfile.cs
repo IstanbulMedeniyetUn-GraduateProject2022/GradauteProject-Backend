@@ -8,6 +8,7 @@ using GraduateProject.Common.DTOs.MedicalCenter;
 using GraduateProject.Common.DTOs.PlaceToVisit;
 using GraduateProject.Common.Models;
 using GraduateProject.Common.Models.SysModels;
+using GraduateProject.Common.ViewModels;
 
 namespace Pal.Web.Extensions
 {
@@ -20,6 +21,9 @@ namespace Pal.Web.Extensions
             CreateMap<Doctor, DoctorDTO>().ReverseMap();
             CreateMap<DoctorTranslate, DoctorTranslateDTO>().ReverseMap();
 
+            CreateMap<Doctor, DoctorViewModel>()
+                .ForMember(dest => dest.Age, source => source.MapFrom(source => source.Birthday))
+                .ReverseMap();
             #endregion
 
             #region Departments

@@ -32,7 +32,6 @@ namespace GraduateProject.Common.DTOs.Doctor
         [StringLength(25)]
         public string WorkingTimeWE { get; set; }
 
-        [Required]
         public string ImagePath { get; set; }
 
         public IFormFile ImageFile { get; set; }

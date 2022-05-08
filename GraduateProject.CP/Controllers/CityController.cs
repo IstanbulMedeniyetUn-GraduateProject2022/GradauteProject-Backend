@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace GraduateProject.CP.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class CityController : Controller

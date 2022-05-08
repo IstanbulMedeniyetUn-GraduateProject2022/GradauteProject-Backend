@@ -37,22 +37,12 @@ namespace GraduateProject.Common.Services.Hotels
         {
             try
             {
-                List<HotelTranslate> translates = new List<HotelTranslate>();
                 Hotel hotel = _autoMapper.Map<Hotel>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new HotelTranslate
-                    {
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
+               
                 if (model.ImageFile != null)
                 {
                     hotel.LogoPath = await _fileManager.UploadFileAsync(model.ImageFile, "hotel", true);
                 }
-                hotel.Translates = translates;
                 _context.Add(hotel);
                 await _context.SaveChangesAsync();
                 return true;
@@ -86,7 +76,7 @@ namespace GraduateProject.Common.Services.Hotels
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true && d.IsDeleted == false).Select(d => new HotelListDTO
+                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == true).Select(d => new HotelListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -126,7 +116,7 @@ namespace GraduateProject.Common.Services.Hotels
             string langId = _languageService.GetLanguageIdFromRequestAsync();
             try
             {
-                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false && d.IsDeleted == true).Select(d => new HotelListDTO
+                List<HotelListDTO> result = await _context.Hotels/*.Include(d => d.MedicalCenter).ThenInclude(m => m.Translates).Include(d => d.Department).ThenInclude(d => d.Translates)*/.Where(d => d.IsActive == false).Select(d => new HotelListDTO
                 {
                     Id = d.Id,
                     Email = d.Email,
@@ -146,19 +136,8 @@ namespace GraduateProject.Common.Services.Hotels
         {
             try
             {
-                List<HotelTranslate> translates = new List<HotelTranslate>();
                 Hotel hotel = _autoMapper.Map<Hotel>(model);
-                foreach (var t in model.Translates)
-                {
-                    translates.Add(new HotelTranslate
-                    {
-                        Id = t.Id,
-                        HotelId = t.HotelId,
-                        Name = t.Name,
-                        Description = t.Description,
-                        LanguageId = t.LanguageId
-                    });
-                }
+                
                 if (model.ImageFile != null)
                 {
                     if (model.LogoPath != null)
@@ -166,7 +145,6 @@ namespace GraduateProject.Common.Services.Hotels
 
                     hotel.LogoPath = await _fileManager.UploadFileAsync(model.ImageFile, "hotel", true);
                 }
-                hotel.Translates = translates;
                 _context.Update(hotel);
                 await _context.SaveChangesAsync();
                 return true;
